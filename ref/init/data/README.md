@@ -1,6 +1,6 @@
 [简体中文](../../../README.md) · [English](../../../README.en.md) · [Русский](../../../README.ru.md)
 
-# 版本数据 / Build data / Данные сборок
+# 版本数据 / Build data / Данные сборок · v1.0.0
 
 ## 中文
 

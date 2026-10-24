@@ -1,6 +1,6 @@
 [简体中文](README.md) | [English](README.en.md) | **Русский**
 
-# SAI 2 - Colored Edition
+# SAI 2 - Colored Edition v1.0.0
 
 Меняйте цвета интерфейса SAI2, создавайте собственные темы и сохраняйте исходную программу.
 
