@@ -122,6 +122,14 @@
                                     </TextBlock>
                                 </Grid>
                                 <TextBlock Text="{Binding Description}" Foreground="{StaticResource MutedText}" FontSize="12" TextWrapping="Wrap" Margin="0,5,0,0"/>
+                                <Button Content="修改" Click="EditTheme_Clicked" HorizontalAlignment="Right" Margin="0,8,0,0" Padding="12,4" MinHeight="30" AutomationProperties.Name="修改已保存主题">
+                                    <Button.Style>
+                                        <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                            <Style.Triggers><DataTrigger Binding="{Binding IsUserTheme}" Value="True"><Setter Property="Visibility" Value="Visible"/></DataTrigger></Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>

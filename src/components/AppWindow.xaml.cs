@@ -191,6 +191,19 @@ public partial class AppWindow : Window
     private void CustomTheme_Clicked(object sender, RoutedEventArgs e)
     {
         if (busy || themeList.SelectedItem is not ThemeOption seed) return;
+        EditTheme(seed);
+    }
+
+    private void EditTheme_Clicked(object sender, RoutedEventArgs e)
+    {
+        e.Handled = true;
+        if (busy || (sender as FrameworkElement)?.DataContext is not ThemeOption seed || !seed.IsUserTheme) return;
+        themeList.SelectedItem = seed;
+        EditTheme(seed);
+    }
+
+    private void EditTheme(ThemeOption seed)
+    {
         var editor = new ThemeEditorWindow(seed) { Owner = this };
         if (editor.ShowDialog() != true || editor.SavedFile is null) return;
         var option = ThemeOption.Load(editor.SavedFile, true);
