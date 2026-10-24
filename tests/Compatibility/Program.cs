@@ -23,6 +23,18 @@ void Assert(bool condition, string message)
     assertions++;
     if (!condition) throw new Exception(message);
 }
+foreach (int code in new[] { 4551, 577, 1260 })
+{
+    var blocked = new System.ComponentModel.Win32Exception(code);
+    Assert(LaunchFailureS2CE.Describe(blocked, true, false).Contains("主题副本已生成"), "Launch block lost generation success");
+    Assert(LaunchFailureS2CE.Describe(blocked, true, false).Contains("Windows"), "Launch block omitted Windows policy");
+    Assert(LaunchFailureS2CE.Describe(blocked, true, true).Contains("原版 SAI"), "Restore block reported wrong executable");
+    Assert(!LaunchFailureS2CE.Describe(blocked, false, false).Contains("已生成"), "Generation failure reported success");
+}
+foreach (int code in new[] { 2, 5, 193, 225 })
+    Assert(!LaunchFailureS2CE.Describe(new System.ComponentModel.Win32Exception(code), true, false).Contains("签名策略"),
+        "Unrelated launch failure misclassified as signature policy");
+
 void Reset(byte[] binary)
 {
     File.WriteAllBytes("ref/sai2.exe", binary);
