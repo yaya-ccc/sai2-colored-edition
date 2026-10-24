@@ -1,3 +1,5 @@
+**简体中文** | [English](README.en.md) | [Русский](README.ru.md)
+
 <div align="center">
   <img src="https://github.com/supchyan/yum2-theme-toolkit/assets/123704468/6a6c2116-0c8e-4f8d-ac0f-d6c1996d273f" height="150" />
 </div>
@@ -10,111 +12,71 @@
     <a href="https://github.com/supchyan/sai2-colored-edition/tree/main/themes/">
       <img src="https://github.com/supchyan/sai2-colored-edition/assets/123704468/e174f1c7-a8bd-424f-801e-025930177841" width="24"/>
       </br>
-      <span>Theme examples</span>
-    </a>  
+      <span>主题示例</span>
+    </a>
   </th>
   <th>
     <a href="https://github.com/supchyan/sai2-colored-edition/tree/main/ref/init/data">
       <img src="https://github.com/supchyan/sai2-colored-edition/assets/123704468/691a8bad-a32d-4ef2-a8a4-d3c7e210c11e" width="24"/>
       </br>
-      <span>Colors & Addresses</span>
-    </a>  
+      <span>颜色与地址</span>
+    </a>
   </th>
   <th>
     <a href="https://github.com/supchyan/sai2-colored-edition/releases">
       <img src="https://github.com/supchyan/sai2-colored-edition/assets/123704468/f2c7603f-030b-4dc1-8984-f49a4532097e" width="24"/>
       </br>
-      <span>Latest releases</span>
-    </a>  
+      <span>最新版本</span>
+    </a>
   </th>
   <th>
     <a href="https://discord.gg/dGF8p9UGyM">
       <img src="https://github.com/supchyan/sai2-colored-edition/assets/123704468/037e74ed-d5cc-4f4c-b668-0c004180b3ab" width="24"/>
       </br>
-      <span>My Discord</span>
-    </a>  
+      <span>Discord 社区</span>
+    </a>
   </th>
 </table>
 </div>
 
 > [!IMPORTANT]
-> I'm not contributing this project right now. If you want to help with reverse-engineering, you're welcome!<br>
-> It's around `95%` of sai2's components are colorable with this tools, so if you fine with this, you're welcome as well!
+> 原作者目前暂未继续开发此项目，欢迎有兴趣的开发者参与逆向工程。<br>
+> 目前可通过这些工具修改 sai2 约 `95%` 的组件颜色，欢迎体验！
 
-[English Description](#introduction)
+## 简介
 
-## Вступление
-Набор инструментов создан на базе `sai2 64bit 2024.02.22`. То есть, это **полноценный sai2**, который поддерживает кастомные темы.
-</br></br>
+这套工具基于 `sai2 64bit 2024.02.22` 制作，是支持自定义主题的**完整 sai2**。
 
-Есть вопросы? Можете задать их мне на моем [Discord Сервере](https://discord.gg/dGF8p9UGyM). Я постараюсь помочь всем, чем смогу.
-</br></br>
+如有疑问，可以前往原作者的 [Discord 服务器](https://discord.gg/dGF8p9UGyM)提问，原作者会尽力提供帮助。
 
-Вот и все. Удачного пользования! ^^
-</br><br/>
+祝使用愉快！^^
 
-## Установка
-Скачайте последнюю версию билда [отсюда](https://github.com/supchyan/sai2-colored-edition/releases). Распакуйте файлы в любую удобную вам папку, запускайте `S2CE.exe` и всё должно работать! 😎
-</br></br>
+## 安装
 
-Для полноценной работы вам потребуется файл лицензии. Такой я вам не могу предоставить, так что это не моя головная боль.</br>
-*Возможно, другой git репозиторий по саи вам поможет, но я вам этого не говорил.*
-</br></br>
+从 [Releases 页面](https://github.com/supchyan/sai2-colored-edition/releases)下载最新版本，解压到任意目录，然后运行 `S2CE.exe` 即可。😎
 
-Файл лицензии должен быть помещён в папку `ref`. Называться файл лицензии может как угодно.
-</br></br>
+要正常使用 sai2，需要自行准备许可证文件，本项目不提供许可证。
 
-## Кастомные темы
-О том, как их создавать, или как они выглядят "внутри" - можете ознакомиться [здесь](https://github.com/supchyan/sai2-colored-edition/tree/main/themes)
-</br></br>
+*原文补充：也许其他与 SAI 相关的 Git 仓库能帮上忙，不过就当我没说。*
 
-## Скриншоты
-![image](https://github.com/supchyan/sai2-colored-edition/assets/123704468/26d762d6-5dab-4e9b-b3be-b87ec18cab4c)
-![image](https://github.com/supchyan/sai2-colored-edition/assets/123704468/842179dc-45eb-4cbf-82fa-9aa4cf1a7106)
-![image](https://github.com/supchyan/sai2-colored-edition/assets/123704468/797b709f-c0f8-446f-bd28-7c1c3caace1f)
-<br/>
+将许可证文件放入 `ref` 文件夹，文件名可以自行命名。
 
-## Разработчикам
-Если вы хотите собрать этот проект из исходного кода, установите `.NET SDK 8.0+` и запустите проект через `Visual Studio`.
+## 自定义主题
 
-🐳<br/><br/><br/>
+有关主题的创建方法及内部结构，请参阅[主题指南](https://github.com/supchyan/sai2-colored-edition/tree/main/themes)。
 
-## Introduction
-Toolkit based on `sai2 64bit 2024.02.22`. So this is **full sai2**, which has custom themes support!
-</br></br>
+## 截图
 
-Any questions? Contact me on my [Discord Server](https://discord.gg/dGF8p9UGyM). I'll do my best.
-</br></br>
+![SAI 2 自定义主题截图 1](https://github.com/supchyan/sai2-colored-edition/assets/123704468/dbe7efca-5865-4585-93d7-fc3541c33575)
+![SAI 2 自定义主题截图 2](https://github.com/supchyan/sai2-colored-edition/assets/123704468/9e74f3b5-ac05-4890-bb7e-abeae43bb404)
+![SAI 2 自定义主题截图 3](https://github.com/supchyan/sai2-colored-edition/assets/123704468/5389d452-b83f-4a30-b50d-ac655947be77)
 
-That's all, good luck in use! ^^
-</br></br>
+## 开发
 
-## How to install
-Get the latest version on [Releases](https://github.com/supchyan/sai2-colored-edition/releases) page. Download and extract folder into any location you want! Run `S2CE.exe` and enjoy 😎
-</br></br>
+当前分支已适配经过验证的 **2024.08.14 x64 汉化构建**，打包与回归验证方式见[兼容性指南](docs/20240814-support.md)。两个受支持构建均按可执行文件的精确哈希识别。
 
-To let sai2 work well, you need a license file. I can't give it to you, so it's not a my problem tho.</br>
-*Probably, other git repo can help you to receive it, but I didn't say that.*
-</br></br>
+1.3.0 提供简体中文启动器、主题卡片、选择记忆和独立恢复入口，在所选原程序旁生成独立的换肤 EXE/INI。见[使用与验证说明](docs/multiversion-copy.md)。
 
-License should be placed into `ref` folder. This license file can be named as you want.
-</br></br>
-
-## Custom themes
-Quick start guide can be found [here](https://github.com/supchyan/sai2-colored-edition/tree/main/themes)
-</br></br>
-
-## Screenshots
-![image](https://github.com/supchyan/sai2-colored-edition/assets/123704468/dbe7efca-5865-4585-93d7-fc3541c33575)
-![image](https://github.com/supchyan/sai2-colored-edition/assets/123704468/9e74f3b5-ac05-4890-bb7e-abeae43bb404)
-![image](https://github.com/supchyan/sai2-colored-edition/assets/123704468/5389d452-b83f-4a30-b50d-ac655947be77)
-<br/>
-
-## Development
-Local continuation: support for the verified **2024.08.14 x64 localized build** is documented in [the compatibility guide](docs/20240814-support.md), including packaging and regression checks. Both supported builds are selected by exact executable hash.
-
-Version 1.3.0 provides a simplified Chinese launcher with theme cards, remembered selections and a separate restore action. It detects verified SAI2 builds and creates a separate themed EXE/INI beside the selected original. See [usage and verification](docs/multiversion-copy.md).
-
-If you want to build this project from source, you need to install `.NET SDK 8.0+` and compile this project using `Visual Studio`.
+如需从源码构建，请安装 `.NET SDK 8.0+`，并使用 `Visual Studio` 编译项目。
 
 🐳
