@@ -5,3 +5,12 @@
 /.vs
 /.github
 *.user
+/tests/**/bin/
+/tests/**/obj/
+/dist/
+/ref/sai2.old.exe
+/ref/sai2.theme-state.json
+/ref/sai2-colored.exe
+/ref/sai2-colored.ini
+/ref/sai2-colored.theme-state.json
+__pycache__/
