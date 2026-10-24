@@ -1,4 +1,4 @@
-# 自动识别版本与独立换肤副本（1.3.0）
+# 自动识别版本与独立换肤副本（1.4.1）
 
 首次打开 `S2CE.exe`，点击“选择程序…”选择自己安装目录中的原 `sai2.exe`，界面会自动显示构建名称和支持状态。之后会记住上次选择的程序与主题。SHA-256、生成路径和已适配构建收在“检测详情”中。
 
@@ -13,6 +13,34 @@
 已有本工具生成的副本时，底部显示“恢复原版并启动”。执行后会校验生成文件的归属，删除本工具生成的 EXE、INI 和状态记录，再启动原版。恢复入口独立于主题列表，不需要把旧字节写回原 EXE。
 
 启动器偏好保存在当前用户的 `%LOCALAPPDATA%\S2CE\preferences.json`，只记录程序路径和主题 ID，不修改 SAI 的配置。
+
+## 自定义配色
+
+内置“卡布奇诺”和“薄荷复古”两套预设，另有原版恢复入口。1.4.0 起可以直接在界面中创建自己的主题：
+
+1. 选中一张主题卡片，点击“自定义配色…”，以当前配色作为起点。
+2. 输入新主题名称。点击色块打开系统选色器，或直接输入六位 `#RRGGBB` 色值，右侧示意图会同步更新。
+3. 按需勾选“色环背景也跟随主题”，然后点击“保存主题”。会新增并选中主题卡片；当前主题保留，同名主题不会被覆盖。
+4. 关闭正在运行的 SAI，点击“生成主题并启动 SAI”应用。保存主题本身不会修改 SAI。
+
+可独立调整以下六组颜色，每项支持 24 位 RGB，共 16,777,216 种颜色：
+
+| 配色项 | 作用 |
+| --- | --- |
+| 主背景 | 工作区和主要背景 |
+| 次背景 | 次级控件和背景区域 |
+| 面板底色 | 工具、图层等面板 |
+| 文字 | 已适配的界面文字 |
+| 强调色 | 主要选中和高亮区域 |
+| 辅助强调色 | 另一组选中和高亮区域 |
+
+这些是界面颜色，不会替换作品中的绘画颜色。部分系统控件或未适配文字仍沿用原程序颜色。卡片和编辑器提供配色示意，实际效果以 SAI 为准；文字与背景过于接近时会显示阅读提示。
+
+自建主题保存在 `%LOCALAPPDATA%\S2CE\themes`，更换工具版本后仍可加载。可复制其中的 JSON 文件分享；接收方放入自己的同一目录后重开工具即可。
+
+1.4.1 起，选中已有的用户主题后点击“编辑配色…”，或直接双击主题卡片，即可修改原主题。点击“保存修改”会更新同一份主题文件和卡片，不会新增副本；主题名称保持不变。要保留当前配色并制作变体，点击“另存为…”，输入新名称后保存。内置预设仍以创建副本的方式使用。
+
+保存修改后，如需应用到 SAI，请先关闭 SAI，再点击“生成主题并启动 SAI”。主界面与编辑器使用统一的深色滚动条，鼠标放在主题卡片上也可使用滚轮。
 
 此模式复用安装目录的资源和现有授权，无需复制授权到主题工具中。非破坏性指原 EXE/INI 不被修改；SAI 运行时仍按自身行为读写个人设置，与原版共享这些设置。
 
@@ -29,7 +57,7 @@
 
 ## 验证记录（2026-10-24）
 
-192 项自动化断言全部通过，覆盖两个版本的原有换肤流程，以及只读版本检测、独立 EXE、配套 INI、原文件保留、确定性生成、classic 清理、同名文件冲突、外部修改后的拒绝处理、程序/主题记忆和损坏偏好的恢复。运行方式：
+221 项自动化断言全部通过，覆盖两个版本的原有换肤流程，以及只读版本检测、独立 EXE、配套 INI、原文件保留、确定性生成、classic 清理、同名文件冲突、外部修改后的拒绝处理、程序/主题记忆和损坏偏好的恢复。新增覆盖 RGB 校验、六色保存重开、同名保护、对比度提示计算、自定义主题实际字节写入及还原，以及原位修改、另存保留原主题、限制修改范围、文件丢失处理和临时文件清理。运行方式：
 
 ```powershell
 dotnet run --project tests\Compatibility -c Release -- 'C:\code\sai2-colored-edition' 'C:\[Saier]SAI Ver.2\sai2.exe'
@@ -37,6 +65,8 @@ dotnet run --project tests\Compatibility -c Release -- 'C:\code\sai2-colored-edi
 
 Windows 沙盒实测确认：
 
+- 1.4.1 已验证[原位保存入口](evidence/theme-edit-1.4.1/02-save-changes-editor.png)、[卡片更新](evidence/theme-edit-1.4.1/03-updated-existing-card.png)、[重开保留修改](evidence/theme-edit-1.4.1/04-reopened-editor.png)、[另存独立副本](evidence/theme-edit-1.4.1/06-saved-separate-copy.png)和[卡片区域滚轮](evidence/theme-edit-1.4.1/07-final-wheel-up.png)。原位保存、滚轮和拖动先在主机开发运行时验证，最终 EXE 的双击编辑、保存重开、另存和滚轮在沙盒验证。主机应用控制拦截新编译的 EXE/DLL（0x800711C7），主机直接启动尚未通过；见[验证记录](evidence/theme-edit-1.4.1/verification.json)。
+- 1.4.0 的[六色编辑与实时预览](evidence/custom-themes-1.4/02-custom-editor.png)、[保存卡片](evidence/custom-themes-1.4/03-saved-theme.png)、[重开记忆](evidence/custom-themes-1.4/04-reopened-selection.png)通过；[夜蓝主题实际运行并打开三图层作品](evidence/custom-themes-1.4/05-custom-sai-artwork.png)，[恢复原版](evidence/custom-themes-1.4/06-original-restored.png)通过。原 EXE/INI 哈希未变，生成副本已清理，见[校验记录](evidence/custom-themes-1.4/verification.json)。编辑器选色、保存与重开在主机验证，实际 SAI 启动与还原在沙盒验证。
 - 1.3.0 的[主题卡片与选择记忆](evidence/launcher-1.3/02-remembered-selection.png)、[生成后反馈和独立恢复入口](evidence/launcher-1.3/04-result-and-restore-action.png)、[恢复后反馈](evidence/launcher-1.3/07-restore-feedback.png)通过；新入口实际启动了主题 SAI 和原版 SAI，原 EXE/INI 哈希未变，生成文件已清理。见[校验结果](evidence/launcher-1.3/verification.json)。
 
 以下为 1.2.0 验证留档，界面已由上述新版取代：

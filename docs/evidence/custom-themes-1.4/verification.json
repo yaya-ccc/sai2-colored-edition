@@ -1,0 +1,30 @@
+{
+  "version": "1.4.0",
+  "build": "2024.08.14 x64 localized",
+  "assertions": 214,
+  "theme": "夜蓝",
+  "palette": {
+    "Primary": "#1A2433",
+    "Secondary": "#25354B",
+    "Ternary": "#344A66",
+    "Text": "#DDE8F5",
+    "SelectablePrimary": "#6EAAFF",
+    "SelectableSecondary": "#496D9B",
+    "AffectColorCircle": "0"
+  },
+  "originalExeSha256": "C1F2B05CF5FB875B7CEB60D3B3809363803BAE0A089E567FEA8704F892CFDEFA",
+  "originalIniSha256": "ABA510862EBE91A9BE0079ED993F18CEAC657DF310634F386469529ADDF6F6D2",
+  "generatedExeSha256": "5D29FCA99ED4BB47CA31119EFD05FAD57E5C8315E0EE1461E6677EC1712AE36B",
+  "globalBordersAt0x534C78": "66-4A-34",
+  "guiChecks": [
+    "invalid RGB disables save",
+    "native color picker RGB roundtrip",
+    "live preview",
+    "save new theme",
+    "reopen remembers user theme",
+    "custom SAI launched",
+    "three-layer artwork reopened with original paint colors"
+  ],
+  "restoreVerified": true,
+  "generatedFilesRemoved": true
+}

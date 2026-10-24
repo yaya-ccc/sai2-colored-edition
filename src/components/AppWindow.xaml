@@ -45,10 +45,16 @@
                     </StackPanel>
                 </Border>
 
-                <TextBlock Text="2   选择主题" Style="{StaticResource SectionTitle}" Margin="0,24,0,12"/>
-                <ListBox Name="themeList" SelectionChanged="Theme_SelectionChanged" Background="Transparent" Foreground="{StaticResource MainText}" BorderThickness="0" Padding="0"
+                <Grid Margin="0,24,10,12">
+                    <TextBlock Text="2   选择主题" Style="{StaticResource SectionTitle}" VerticalAlignment="Center"/>
+                    <Button Name="customThemeButton" Content="自定义配色…" HorizontalAlignment="Right" Padding="12,6" MinHeight="34" Click="CustomTheme_Clicked"/>
+                </Grid>
+                <ListBox Name="themeList" SelectionChanged="Theme_SelectionChanged" MouseDoubleClick="Theme_DoubleClicked" Background="Transparent" Foreground="{StaticResource MainText}" BorderThickness="0" Padding="0"
                          ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled"
                          HorizontalContentAlignment="Stretch" AutomationProperties.Name="主题配色">
+                    <ListBox.Template>
+                        <ControlTemplate TargetType="ListBox"><ItemsPresenter/></ControlTemplate>
+                    </ListBox.Template>
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate><UniformGrid Columns="2"/></ItemsPanelTemplate>
                     </ListBox.ItemsPanel>
@@ -59,6 +65,7 @@
                             <Setter Property="Padding" Value="0"/>
                             <Setter Property="Margin" Value="0,0,10,10"/>
                             <Setter Property="Cursor" Value="Hand"/>
+                            <Setter Property="ToolTip" Value="双击编辑配色；内置预设将创建副本。"/>
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="ListBoxItem">

@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using Microsoft.Win32;
 using S2CE.Tools;
@@ -26,16 +27,21 @@ public partial class AppWindow : Window
         versionLabel.Text = "S2CE " + Assembly.GetExecutingAssembly().GetName().Version?.ToString(3);
         var saved = preferences.Read();
         var themes = new List<ThemeOption>();
-        try
+        foreach (var (folder, userTheme) in new[] { ("./themes", false), (UserThemesS2CE.DirectoryPath, true) })
         {
-            foreach (string file in Directory.GetFiles("./themes", "*.json").Order())
+            if (userTheme && !Directory.Exists(folder)) continue;
+            try
             {
-                try { themes.Add(ThemeOption.Load(file)); }
-                catch (Exception exception) when (exception is IOException or JsonException or InvalidDataException)
-                { preferenceError = "未加载主题 " + Path.GetFileName(file) + "：" + exception.Message; }
+                foreach (string file in Directory.GetFiles(folder, "*.json").Order())
+                {
+                    try { themes.Add(ThemeOption.Load(file, userTheme)); }
+                    catch (Exception exception) when (exception is IOException or JsonException or InvalidDataException or UnauthorizedAccessException)
+                    { preferenceError = "未加载主题 " + Path.GetFileName(file) + "：" + exception.Message; }
+                }
             }
+            catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
+            { preferenceError = "无法读取主题目录：" + exception.Message; }
         }
-        catch (IOException exception) { preferenceError = "无法读取主题目录：" + exception.Message; }
         themeList.ItemsSource = themes;
         themeList.SelectedItem = themes.FirstOrDefault(theme => theme.Id == saved.ThemeId) ?? themes.FirstOrDefault();
         if (themes.Count == 0) themeHint.Text = "未找到可用主题，请检查程序旁的 themes 文件夹。";
@@ -109,6 +115,8 @@ public partial class AppWindow : Window
     {
         bool supported = compatibility?.IsSupported == true;
         selectSaiButton.IsEnabled = refreshSaiButton.IsEnabled = themeList.IsEnabled = !busy;
+        customThemeButton.IsEnabled = !busy && themeList.SelectedItem is ThemeOption;
+        customThemeButton.Content = (themeList.SelectedItem as ThemeOption)?.IsUserTheme == true ? "编辑配色…" : "自定义配色…";
         launchButton.IsEnabled = !busy && supported && themeList.SelectedItem is ThemeOption;
         launchButton.Content = busy ? "正在处理…" : sourcePath is null ? "请先选择 SAI2" : "生成主题并启动 SAI";
         restoreButton.Visibility = supported && compatibility?.IsThemed == true ? Visibility.Visible : Visibility.Collapsed;
@@ -126,13 +134,13 @@ public partial class AppWindow : Window
 
     private async void Launch_ButtonClicked(object sender, RoutedEventArgs e)
     {
-        if (themeList.SelectedItem is ThemeOption theme) await ApplyAndLaunch(theme.Id, theme.Name, false);
+        if (themeList.SelectedItem is ThemeOption theme) await ApplyAndLaunch(theme.Id, theme.Name, false, theme.FilePath);
     }
 
     private async void Restore_ButtonClicked(object sender, RoutedEventArgs e) =>
         await ApplyAndLaunch("classic_sai2", "原版", true);
 
-    private async Task ApplyAndLaunch(string themeId, string name, bool restore)
+    private async Task ApplyAndLaunch(string themeId, string name, bool restore, string? themeFile = null)
     {
         if (busy || !RefreshCompatibility()) return;
         busy = true;
@@ -143,7 +151,7 @@ public partial class AppWindow : Window
         bool generated = false;
         try
         {
-            await Task.Run(() => new MainTheme().Apply(themeId, false));
+            await Task.Run(() => new MainTheme().Apply(themeId, false, themeFile));
             generated = true;
             string executable = Path.GetFullPath(restore ? PathS2CE.originalSai2 : PathS2CE.sai2);
             Process.Start(new ProcessStartInfo(executable) { UseShellExecute = true, WorkingDirectory = Path.GetDirectoryName(executable)! });
@@ -172,6 +180,30 @@ public partial class AppWindow : Window
         detectionExpander.Visibility = Visibility.Visible;
         detectionExpander.IsExpanded = true;
         detectionDetails.Text = message + "\n" + exception.Message;
+    }
+
+    private void Theme_DoubleClicked(object sender, MouseButtonEventArgs e)
+    {
+        if (e.OriginalSource is DependencyObject source && ItemsControl.ContainerFromElement(themeList, source) is ListBoxItem)
+            CustomTheme_Clicked(sender, e);
+    }
+
+    private void CustomTheme_Clicked(object sender, RoutedEventArgs e)
+    {
+        if (busy || themeList.SelectedItem is not ThemeOption seed) return;
+        var editor = new ThemeEditorWindow(seed) { Owner = this };
+        if (editor.ShowDialog() != true || editor.SavedFile is null) return;
+        var option = ThemeOption.Load(editor.SavedFile, true);
+        var themes = themeList.Items.Cast<ThemeOption>().ToList();
+        int existing = themes.FindIndex(theme => theme.Id == option.Id);
+        if (existing >= 0) themes[existing] = option;
+        else themes.Add(option);
+        themeList.ItemsSource = themes;
+        themeList.SelectedItem = option;
+        themeList.ScrollIntoView(option);
+        operationMessage.Text = (editor.UpdatedExisting ? "已更新「" : "已保存「") + option.Name + "」。" +
+            (compatibility?.IsSupported == true ? "点击“生成主题并启动 SAI”即可应用。" : "选择 SAI2 程序后即可应用。");
+        operationMessage.Foreground = (Brush)FindResource("Accent");
     }
 
     protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
