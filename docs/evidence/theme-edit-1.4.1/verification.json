@@ -1,0 +1,18 @@
+{
+  "version": "1.4.1",
+  "assertions": 221,
+  "build": "Release, zero warnings/errors",
+  "gui": [
+    "Existing user theme opened in edit mode",
+    "Native save updated Primary to #203047 in same file",
+    "Edited card refreshed without duplication",
+    "Card wheel scrolling and dark scrollbar dragging",
+    "Final EXE launched in Windows Sandbox",
+    "Double-click opened theme editor",
+    "Color-circle change saved in place and retained on reopen",
+    "Save-as created separate card and retained original",
+    "Final build wheel-up over card worked"
+  ],
+  "hostLaunchLimitation": "Windows application control blocked newly compiled EXE and DLL (0x800711C7); final EXE GUI verified in Windows Sandbox",
+  "sha256": "5C773BF635A7C51127713387221A1CF897F998CC70EF205D0AF08A5CE98482A7"
+}

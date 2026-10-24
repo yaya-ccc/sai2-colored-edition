@@ -20,7 +20,7 @@ namespace S2CE {
         // true, whenever user want to theme the ciki circle
         public bool AffectColorCircle           { get; set; } = true;
 
-        public void Apply(string themeName, bool launch = true) {
+        public void Apply(string themeName, bool launch = true, string? themeFile = null) {
 
             theme = new ThemeS2CE();
             saiAddress = BinaryProfileS2CE.GetAddresses(theme.binary);
@@ -35,17 +35,9 @@ namespace S2CE {
                 return;
             }
 
-            // Get theme vaules:
-            var themeDict = JsonSerializer.Deserialize<Dictionary<string, string>>(File.ReadAllText($"./themes/{themeName}.json"));
-
-            AffectColorCircle = themeDict is null ||
-                !themeDict.TryGetValue("AffectColorCircle", out string? circleSetting) ||
-                !int.TryParse(circleSetting, out int circleValue) || circleValue != 0;
-
-            // Remove AffectColorCircle from theme file since useless any further
-            themeDict?.Remove("AffectColorCircle");
-
-            themeColor = themeDict?.ConvertToByteColorDictionary();
+            var palette = ThemePaletteS2CE.Load(themeFile ?? $"./themes/{themeName}.json");
+            AffectColorCircle = palette.AffectColorCircle;
+            themeColor = palette.Colors.ToDictionary(pair => pair.Key, pair => pair.Value).ConvertToByteColorDictionary();
 
             // Getting replacment libraries:
             saiColorRGB = JsonSerializer.Deserialize<Dictionary<string, string>>(File.ReadAllText("./ref/init/data/ColorRGB.json"))?.ConvertToByteColorDictionaryRGB();

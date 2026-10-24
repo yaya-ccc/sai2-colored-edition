@@ -1,3 +1,13 @@
+1.4.1 - Edit saved themes and consistent scrolling
+Update existing user themes in place or save a separate copy from the editor.
+Refresh edited theme cards without duplicates and keep the current selection.
+Use dark scrollbars and let the mouse wheel scroll over theme cards.
+
+1.4.0 - Custom theme colors
+Edit six interface colors with a native color picker, hex input and a live preview.
+Save new user themes independently of the application and built-in presets.
+Keep the color-circle option with each theme and reload custom themes on startup.
+
 1.3.0 - Simplified Chinese launcher
 Replace the changelog sidebar with a focused source/theme/action flow.
 Add theme cards, collapsed detection details and a separate restore action.

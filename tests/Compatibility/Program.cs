@@ -240,6 +240,77 @@ try
     catch (FileNotFoundException) { }
     Assert(!File.Exists("ref/sai2.old.exe"), "Missing theme created a backup");
     Assert(File.ReadAllBytes("ref/sai2.exe").SequenceEqual(target), "Missing theme modified executable");
+    Assert(ThemePaletteS2CE.TryNormalize(" aabbcc ", out string normalized) && normalized == "#AABBCC", "Hex input was not normalized");
+    Assert(!ThemePaletteS2CE.TryNormalize("#12345", out _), "Incomplete color was accepted");
+    Assert(!ThemePaletteS2CE.TryNormalize("#12345678", out _), "Alpha color was accepted as RGB");
+    var customColors = new Dictionary<string, string> {
+        ["Primary"] = "#1A2433", ["Secondary"] = "#25354B", ["Ternary"] = "#344A66",
+        ["Text"] = "#DDE8F5", ["SelectablePrimary"] = "#6EAAFF", ["SelectableSecondary"] = "#496D9B"
+    };
+    var customPalette = new ThemePaletteS2CE(customColors, false);
+    string userThemes = Path.Combine(temporary, "user-themes");
+    string customFile = UserThemesS2CE.SaveNew("夜蓝 主题", customPalette, userThemes);
+    byte[] savedTheme = File.ReadAllBytes(customFile);
+    var reopened = ThemePaletteS2CE.Load(customFile);
+    Assert(reopened.Colors.Count == 6 && customColors.All(pair => reopened.Colors[pair.Key] == pair.Value), "Saved theme lost color roles");
+    Assert(!reopened.AffectColorCircle, "Saved theme lost color-circle setting");
+    bool duplicateRejected = false;
+    try { UserThemesS2CE.SaveNew("夜蓝 主题", new ThemePaletteS2CE(customColors, true), userThemes); }
+    catch (InvalidDataException) { duplicateRejected = true; }
+    Assert(duplicateRejected && savedTheme.SequenceEqual(File.ReadAllBytes(customFile)), "Duplicate name overwrote an existing user theme");
+    foreach (string invalidName in new[] { "..\\escape", "CON", "LPT1", "", "name." })
+    {
+        bool rejected = false;
+        try { UserThemesS2CE.SaveNew(invalidName, customPalette, userThemes); }
+        catch (InvalidDataException) { rejected = true; }
+        Assert(rejected, "Invalid theme name was accepted: " + invalidName);
+    }
+    Assert(Directory.GetFiles(userThemes).Length == 1, "Failed saves created extra theme files");
+    string circleFile = UserThemesS2CE.SaveNew("色环主题", new ThemePaletteS2CE(customColors, true), userThemes);
+    Assert(ThemePaletteS2CE.Load(circleFile).AffectColorCircle, "Enabled color-circle setting did not survive saving");
+    var editedColors = customColors.ToDictionary(pair => pair.Key, pair => pair.Value);
+    editedColors["Primary"] = "#203047";
+    var editedPalette = new ThemePaletteS2CE(editedColors, true);
+    string editedFile = UserThemesS2CE.SaveChanges(customFile, editedPalette, userThemes);
+    var edited = ThemePaletteS2CE.Load(editedFile);
+    Assert(editedFile == customFile && edited.Colors["Primary"] == "#203047" && edited.AffectColorCircle,
+        "Editing did not update the existing theme and circle setting");
+    Assert(Directory.GetFiles(userThemes).Length == 2, "Editing duplicated a theme or left temporary files");
+    Assert(ThemePaletteS2CE.Load(circleFile).Colors["Primary"] == customColors["Primary"], "Editing changed another theme");
+    string copiedFile = UserThemesS2CE.SaveNew("夜蓝 副本", customPalette, userThemes);
+    Assert(ThemePaletteS2CE.Load(customFile).Colors["Primary"] == "#203047" &&
+        ThemePaletteS2CE.Load(copiedFile).Colors["Primary"] == "#1A2433", "Save-as changed the edited original");
+    string externalTheme = Path.Combine(temporary, "external.json");
+    File.WriteAllText(externalTheme, customPalette.ToJson());
+    bool externalEditRejected = false;
+    try { UserThemesS2CE.SaveChanges(externalTheme, editedPalette, userThemes); }
+    catch (InvalidDataException) { externalEditRejected = true; }
+    Assert(externalEditRejected && ThemePaletteS2CE.Load(externalTheme).Colors["Primary"] == "#1A2433",
+        "Editing overwrote a theme outside the user directory");
+    bool missingEditRejected = false;
+    try { UserThemesS2CE.SaveChanges(Path.Combine(userThemes, "missing.json"), editedPalette, userThemes); }
+    catch (FileNotFoundException) { missingEditRejected = true; }
+    Assert(missingEditRejected && Directory.GetFiles(userThemes).Length == 3, "Editing recreated a missing theme");
+    UserThemesS2CE.SaveChanges(customFile, customPalette, userThemes);
+    Assert(savedTheme.SequenceEqual(File.ReadAllBytes(customFile)), "Repeated theme updates did not round-trip");
+    var contrastColors = customColors.ToDictionary(pair => pair.Key, _ => "#000000");
+    contrastColors["Text"] = "#FFFFFF";
+    Assert(Math.Abs(new ThemePaletteS2CE(contrastColors, false).MinimumTextContrast() - 21) < 0.001, "White-on-black contrast differs");
+    contrastColors["Text"] = "#000000";
+    Assert(new ThemePaletteS2CE(contrastColors, false).MinimumTextContrast() == 1, "Matching text/background contrast differs");
+    Reset(target);
+    app.Apply("user:夜蓝 主题", false, customFile);
+    byte[] customOutput = File.ReadAllBytes("ref/sai2.exe");
+    var customAddresses = BinaryProfileS2CE.GetAddresses(target);
+    Assert(customOutput.AsSpan(customAddresses["GlobalBorders"], 3).SequenceEqual(new byte[] { 0x66, 0x4A, 0x34 }), "External user theme panel color was not applied");
+    Assert(customOutput.AsSpan(customAddresses["ActiveCanvasBackground"], 3).SequenceEqual(new byte[] { 0x33, 0x24, 0x1A }), "External user theme primary color was not applied");
+    Assert(savedTheme.SequenceEqual(File.ReadAllBytes(customFile)), "Applying a custom theme modified its definition");
+    app.Apply("classic_sai2", false);
+    Assert(File.ReadAllBytes("ref/sai2.exe").SequenceEqual(target), "Custom theme did not restore exactly");
+    string invalidThemeFile = Path.Combine(userThemes, "invalid.json");
+    customColors["Text"] = "#oops";
+    File.WriteAllText(invalidThemeFile, JsonSerializer.Serialize(customColors));
+    RejectedWithoutChanges(() => app.Apply("user:invalid", false, invalidThemeFile), "Invalid custom palette");
     string preferencesFile = Path.Combine(temporary, "preferences", "preferences.json");
     var preferences = new LauncherPreferencesS2CE(preferencesFile);
     Assert(preferences.Read() == new LauncherPreferences(), "Fresh launcher should require a source selection");
