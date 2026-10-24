@@ -1,3 +1,15 @@
+# v1.0.0
+
+Start the maintained edition at v1.0.0 with the existing feature set:
+
+- Separate themed EXE/INI generation and restoration, with exact build checks.
+- Theme cards, remembered selections and a six-color editor with live preview.
+- User theme editing, save-as support and consistent scrolling.
+
+## Historical development builds (before v1.0.0 numbering)
+
+The entries below retain the version numbers used during development.
+
 1.4.1 - Edit saved themes and consistent scrolling
 Update existing user themes in place or save a separate copy from the editor.
 Refresh edited theme cards without duplicates and keep the current selection.

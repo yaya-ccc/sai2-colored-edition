@@ -1,6 +1,6 @@
 **简体中文** | [English](README.en.md) | [Русский](README.ru.md)
 
-# SAI 2 - Colored Edition
+# SAI 2 - Colored Edition v1.0.0
 
 为 SAI2 更换界面配色，支持自定义主题，保留原版程序。
 

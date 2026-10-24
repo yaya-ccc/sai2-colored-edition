@@ -24,7 +24,7 @@ public partial class AppWindow : Window
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
-        versionLabel.Text = "S2CE " + Assembly.GetExecutingAssembly().GetName().Version?.ToString(3);
+        versionLabel.Text = "S2CE v" + Assembly.GetExecutingAssembly().GetName().Version?.ToString(3);
         var saved = preferences.Read();
         var themes = new List<ThemeOption>();
         foreach (var (folder, userTheme) in new[] { ("./themes", false), (UserThemesS2CE.DirectoryPath, true) })

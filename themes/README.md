@@ -1,6 +1,6 @@
 [简体中文](../README.md) · [English](../README.en.md) · [Русский](../README.ru.md)
 
-# 主题 / Themes / Темы
+# 主题 / Themes / Темы · v1.0.0
 
 ## 中文
 
