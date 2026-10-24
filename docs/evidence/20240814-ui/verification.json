@@ -1,0 +1,23 @@
+{
+  "result": "PASS",
+  "dialogLabelsBefore": {
+    "dark": 1014,
+    "light": 0
+  },
+  "dialogLabelsAfter": {
+    "dark": 0,
+    "light": 907
+  },
+  "exportSize": [
+    512,
+    512
+  ],
+  "exportDifferentPixels": 0,
+  "blackPixels": 4280,
+  "redPixels": 4455,
+  "darkExportSha256": "3a2b005a61c68f4ac52138cc69c9b16daa07a9c790799cea1b7d9bf52a10dd33",
+  "restoredExportSha256": "3a2b005a61c68f4ac52138cc69c9b16daa07a9c790799cea1b7d9bf52a10dd33",
+  "restoredExecutableSha256": "c1f2b05cf5fb875b7ceb60d3b3809363803bae0a089e567fea8704f892cfdefa",
+  "backupRemoved": true,
+  "stateRemoved": true
+}

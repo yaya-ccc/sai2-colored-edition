@@ -1,0 +1,22 @@
+[
+  {
+    "Id": "sai2-20240222-x64-bundled",
+    "DisplayName": "SAI2 2024.02.22 x64 (bundled)",
+    "Length": 5876736,
+    "Sha256": "962922289BB5B005212BE8E24426AAE50B8903B70965079DEC8268454DB2423D",
+    "AddressFile": "Address.json"
+  },
+  {
+    "Id": "sai2-20240814-x64-localized",
+    "DisplayName": "SAI2 2024.08.14 x64 (localized)",
+    "Length": 5698560,
+    "Sha256": "C1F2B05CF5FB875B7CEB60D3B3809363803BAE0A089E567FEA8704F892CFDEFA",
+    "AddressFile": "Address.20240814.json",
+    "ControlTextFix": {
+      "Cave": "0x00181A08",
+      "Converter": "0x001D8A20",
+      "SelectionBackground": "0x001F2E1D",
+      "Calls": ["0x001C2943", "0x001F2E46", "0x002060BF"]
+    }
+  }
+]

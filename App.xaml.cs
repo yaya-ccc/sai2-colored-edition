@@ -9,6 +9,11 @@ namespace S2CE
     /// </summary>
     public partial class App : Application
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            System.IO.Directory.SetCurrentDirectory(AppContext.BaseDirectory);
+            base.OnStartup(e);
+        }
     }
 
 

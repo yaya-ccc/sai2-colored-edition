@@ -9,6 +9,9 @@ using System.Text.Json;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Reflection;
+using S2CE.Tools;
+using Microsoft.Win32;
+using Path = System.IO.Path;
 
 namespace S2CE.Components
 {
@@ -43,7 +46,8 @@ namespace S2CE.Components
                 AddItem(f);
             }
 
-            SetListHeight();
+            PathS2CE.UseSource(Path.GetFullPath("./ref/sai2.exe"));
+            RefreshCompatibility();
         }
 
         private void Item_Selected(object sender, RoutedEventArgs e)
@@ -56,13 +60,60 @@ namespace S2CE.Components
 
         private async void Launch_ButtonClicked(object sender, RoutedEventArgs e)
         {
+            if (!RefreshCompatibility()) return;
             launchButton.IsEnabled = false;
+            selectSaiButton.IsEnabled = refreshSaiButton.IsEnabled = appList.IsEnabled = false;
             launchButton.Content = "Running";
-            await Task.Run(() =>
+            try
             {
-                mainTheme.Apply(selectedTheme);
-            });
+                await Task.Run(() => mainTheme.Apply(selectedTheme ?? "classic_sai2"));
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(this, exception.Message, "SAI2 theme could not be applied", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                selectSaiButton.IsEnabled = refreshSaiButton.IsEnabled = true;
+                launchButton.Content = "Save & Run";
+                RefreshCompatibility();
+            }
         }
+
+        private bool RefreshCompatibility()
+        {
+            var result = CompatibilityS2CE.CheckCurrent();
+            compatibilityTitle.Text = (result.IsSupported ? "支持 · " : "不可换肤 · ") + result.Build;
+            compatibilityTitle.Foreground = new SolidColorBrush(result.IsSupported ? Color.FromRgb(159, 255, 220) : Color.FromRgb(255, 185, 135));
+            compatibilityPath.Text = "原文件：" + result.Path;
+            compatibilityPath.ToolTip = "SHA-256: " + result.Sha256;
+            compatibilityDetails.Text = result.Details + Environment.NewLine +
+                "生成副本：" + Path.GetFullPath(PathS2CE.sai2) + Environment.NewLine +
+                "同时生成同名 INI，保留原 EXE/INI；classic 清理生成的副本并启动原版。";
+            compatibilityDetails.ToolTip = compatibilityDetails.Text;
+            try { supportedBuilds.Text = "已适配：" + string.Join("；", BinaryProfileS2CE.SupportedBuilds()); }
+            catch { supportedBuilds.Text = "适配目录无法读取。"; }
+            launchButton.IsEnabled = appList.IsEnabled = result.IsSupported;
+            return result.IsSupported;
+        }
+
+        private void SelectSai_ButtonClicked(object sender, RoutedEventArgs e)
+        {
+            var dialog = new OpenFileDialog { Title = "选择原版 sai2.exe（原文件保持不变）",
+                Filter = "SAI2 executable (*.exe)|*.exe", CheckFileExists = true, Multiselect = false };
+            if (dialog.ShowDialog(this) != true) return;
+            try
+            {
+                PathS2CE.UseSource(dialog.FileName);
+                RefreshCompatibility();
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(this, exception.Message, "SAI2 selection", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void RefreshSai_ButtonClicked(object sender, RoutedEventArgs e) => RefreshCompatibility();
         private void Git_ButtonClicked(object sender, RoutedEventArgs e)
         {
             Process.Start(new ProcessStartInfo("https://github.com/supchyan/sai2-colored-edition") { UseShellExecute = true });
@@ -70,14 +121,6 @@ namespace S2CE.Components
         private void Dis_ButtonClicked(object sender, RoutedEventArgs e)
         {
             Process.Start(new ProcessStartInfo("https://discord.gg/dGF8p9UGyM") { UseShellExecute = true });
-        }
-        private void Window_Resized(object sender, SizeChangedEventArgs e)
-        {
-            SetListHeight();
-        }
-        void SetListHeight()
-        {
-            appList.Height = this.ActualHeight - launchButton.ActualHeight - this.Margin.Top - this.Margin.Bottom - appList.Margin.Top - 80;
         }
         
         void AddItem(string f, bool vanilla = false)
@@ -96,7 +139,7 @@ namespace S2CE.Components
 
                 item.Content = panel;
 
-                Dictionary<string, string> colors = new Dictionary<string, string>() {
+                Dictionary<string, string>? colors = new Dictionary<string, string>() {
                     { "0","#C0C0C0" },
                     { "1","#FFFFFF" },
                     { "2","#CCCCCC" },

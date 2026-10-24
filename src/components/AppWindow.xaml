@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:S2CE"
         mc:Ignorable="d"
-        Title="S2CE" Height="600" Width="800" Loaded="Window_Loaded" FontFamily="{StaticResource Monocraft}" FontSize="15" SizeChanged="Window_Resized" WindowStartupLocation="CenterScreen" ResizeMode="CanResizeWithGrip">
+        Title="S2CE" Height="740" Width="1060" MinHeight="600" MinWidth="900" Loaded="Window_Loaded" FontFamily="{StaticResource Monocraft}" FontSize="15" WindowStartupLocation="CenterScreen" ResizeMode="CanResizeWithGrip">
 
     <Grid Background="#FF1B1B1E">
         <Grid.ColumnDefinitions>
@@ -14,6 +14,11 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid x:Name="leftGrid" Grid.Column="0" Margin="15,15,0,15">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
             <StackPanel>
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left">
                     <Path VerticalAlignment="Center" Stretch="Fill" Width="20" Height="18" Cursor="Hand"
@@ -24,7 +29,8 @@
                 <TextBlock VerticalAlignment="Top" Foreground="#FF717070" Margin="0,20,0,0" Text="ChangeLog:" HorizontalAlignment="Left" FontSize="18" />
                 <TextBox Name="changeLog" TextWrapping="Wrap" Foreground="#FF9FFFDC" Text="This is changelog placeholder! If you see this, nothing is working properly here!" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" Focusable="False" SelectionTextBrush="{x:Null}" Width="{Binding ActualWidth, ElementName=grid, Mode=OneWay}" SelectionOpacity="0" AllowDrop="False" IsHitTestVisible="False" IsTabStop="False" IsEnabled="False" Padding="-3,0,0,0" Margin="0,10,0,0" />
             </StackPanel>
-            <Grid>
+            </ScrollViewer>
+            <Grid Grid.Row="1">
                 <TextBlock Name="version" Text="ver. " VerticalAlignment="Bottom" HorizontalAlignment="Right" Foreground="#FF717070"/>
                 <Button Name="gitButton" Click="Git_ButtonClicked" Padding="7" Margin="0,0,20,0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="{Binding Width, ElementName=gitButton}" ToolTip="Project on GitHub">
                     <Button.Content>
@@ -62,18 +68,33 @@
             Width="3" Background="#FF717070" 
             HorizontalAlignment="Center" Cursor="SizeWE"/>
         <Grid x:Name="rightGrid" Grid.Column="2" Margin="0,15,15,15">
-            <StackPanel>
-                <Grid VerticalAlignment="Top" Height="{Binding Height, ElementName=textBlock}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+                <Grid Grid.Row="0" VerticalAlignment="Top">
                     <StackPanel Orientation="Horizontal">
                         <Path Stretch="Fill" Width="18" Height="20" Cursor="Hand" Fill="White" VerticalAlignment="Center" Margin="0,0,10,0"
                             Data="M6 0H8V2H6V0ZM10 4V2H8V4H6V6H4V8H2V10H0V12H2V14H4V16H6V18H8V20H10V18H12V16H14V14H16V20H18V10H16V8H14V6H12V4H10ZM10 4V6H12V8H14V10H16V12H14H12H10H8H6H4H2V10H4V8H6V6H8V4H10Z" />
-                        <TextBlock x:Name="textBlock" FontSize="18" Text="Select your theme below" Foreground="#FFCCCCCC" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,20,0"/>
+                        <TextBlock x:Name="textBlock" FontSize="18" Text="Select theme" Foreground="#FFCCCCCC" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,20,0"/>
                     </StackPanel>
-                    <Button Name="launchButton" Content="Save &amp; Run" Click="Launch_ButtonClicked" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                    <Button Name="launchButton" Content="Save &amp; Run" IsEnabled="False" Click="Launch_ButtonClicked" HorizontalAlignment="Right" VerticalAlignment="Center" />
                 </Grid>
-                <ListBox Name="appList" Background="{x:Null}" Foreground="#FFCCCCCC" BorderBrush="{x:Null}" Margin="0,20,-20,0" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Hidden" VerticalContentAlignment="Center">
+                <Border Grid.Row="1" Margin="0,15,0,0" Padding="12" BorderBrush="#555555" BorderThickness="1" TextElement.FontFamily="Segoe UI">
+                    <StackPanel>
+                        <TextBlock Name="compatibilityTitle" Text="正在检测 SAI2…" Foreground="#CCCCCC" FontSize="16" TextWrapping="Wrap"/>
+                        <TextBlock Name="compatibilityPath" Foreground="#CCCCCC" FontSize="12" Margin="0,6,0,0" TextWrapping="Wrap"/>
+                        <TextBlock Name="compatibilityDetails" Foreground="#BBBBBB" FontSize="13" Margin="0,6,0,0" TextWrapping="Wrap" MaxHeight="100" TextTrimming="CharacterEllipsis"/>
+                        <TextBlock Name="supportedBuilds" Foreground="#AAAAAA" FontSize="12" Margin="0,6,0,0" TextWrapping="Wrap"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                            <Button Name="selectSaiButton" Content="选择原版 SAI2…" FontSize="13" Padding="8,5" Click="SelectSai_ButtonClicked"/>
+                            <Button Name="refreshSaiButton" Content="重新检测" FontSize="13" Padding="8,5" Margin="10,0,0,0" Click="RefreshSai_ButtonClicked"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+                <ListBox Grid.Row="2" Name="appList" Background="{x:Null}" Foreground="#FFCCCCCC" BorderBrush="{x:Null}" Margin="0,20,-20,0" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Hidden" VerticalContentAlignment="Center">
                 </ListBox>
-            </StackPanel>
         </Grid>
     </Grid>
 </Window>

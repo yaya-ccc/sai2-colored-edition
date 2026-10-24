@@ -1,0 +1,385 @@
+{
+  "installation": {
+    "history.txt": {
+      "sha256": "c0ef5aa692fedd0cbfb27551b64fc8ae32615715f02495134c85fd0148446895"
+    },
+    "sai-icon.ico": {
+      "sha256": "359dfce4337fac57290b3f9a0a0df80fdf4dc28e59716565e0f1c9602c0bb9c8"
+    },
+    "sai2-file.ico": {
+      "sha256": "c494c9862788e0c0c0c3aefd112b4dadda0732de2884381a4e79099264cd3c8a"
+    },
+    "sai2.exe": {
+      "sha256": "c1f2b05cf5fb875b7ceb60d3b3809363803bae0a089e567fea8704f892cfdefa"
+    },
+    "sai2.ini": {
+      "sha256": "aba510862ebe91a9be0079ed993f18ceac657df310634f386469529addf6f6d2"
+    },
+    "unins000.dat": {
+      "sha256": "b0dbacf2aa4e39fad8ab9fd57cc342b7c4bf2f7807d0885819b302672befcac0"
+    },
+    "unins000.exe": {
+      "sha256": "10b20c679c5c225e16f176927292e67df25b36ef5cb65507680c42c09e5ca0a6"
+    },
+    "\u65b0\u7248\u5b89\u88c5\u7b14\u5237\u6559\u7a0b.html": {
+      "sha256": "b4d5db60e0112c57d1f80252d654b35f062b19eccaa66dd19765f7d4a76b7810"
+    },
+    "\u6c49\u5316\u8bf4\u660e.txt": {
+      "sha256": "6f0688c1ba0dac2fd5a99953a6415ac1758e18799505b8543217a235a3399b53"
+    },
+    "init\\blotmap\\\u6e17\u5316.bmp": {
+      "sha256": "3a50c1123d38839112e6efdba622098138f895eeca65a13923eaa00ef5903fb1"
+    },
+    "init\\blotmap\\\u6e17\u5316\u548c\u6742\u8272.bmp": {
+      "sha256": "75b412bc911f85b71ab0f74648fca9d8a7b0f88bd2eb65cd9f941cc1ca87fa42"
+    },
+    "init\\bristle\\\u5706\u7b14.bmp": {
+      "sha256": "027c4b9e37a606152c90ccb5b5b0cbfeb384521ba148cbce76c35057cbd6aa30"
+    },
+    "init\\bristle\\\u5e73\u7b14.bmp": {
+      "sha256": "dc9dc48da8eaa9f627dc5285b4700b88d827aa26a36fcf9f36a559ab9f28a650"
+    },
+    "init\\bristle\\\u5e73\u9762.bmp": {
+      "sha256": "54ba8e6318a98a6caecdac4ebf8b7b5961d49edcb908523625ce9bc3c2655bf8"
+    },
+    "init\\brshape\\\u6c34\u5f69\u6d07\u67d3.bmp": {
+      "sha256": "9a259f9b7b94c150ed37061e18cdd8eae55538181ad1afe6dfc2a90b3bdfae57"
+    },
+    "init\\brshape\\\u6c34\u5f69\u6d07\u67d3.ini": {
+      "sha256": "7b8fe244cb31c5b06b6ffe5c75069fd5287ccaa1b3aeed028f4cdf0eaff51c3b"
+    },
+    "init\\brushtex\\\u56fe\u753b\u7eb8.bmp": {
+      "sha256": "6cfc0e01583bfd0a1b1598bb954077acd3502bc5c24524132e3a17dac129137c"
+    },
+    "init\\brushtex\\\u753b\u5e03.bmp": {
+      "sha256": "56fd2208ac9082c2500b155f5dfd312b3289c53b2e5ae259d6b30e50982a5d76"
+    },
+    "init\\papertex\\\u56fe\u753b\u7eb8.bmp": {
+      "sha256": "6cfc0e01583bfd0a1b1598bb954077acd3502bc5c24524132e3a17dac129137c"
+    },
+    "init\\papertex\\\u6c34\u5f691.bmp": {
+      "sha256": "43a13ec4f54eff7aaa77ab2a7a292cdbe58dbccdc6d37d95a1ad1528787c7559"
+    },
+    "init\\papertex\\\u6c34\u5f692.bmp": {
+      "sha256": "7ac03b1f36bd2a0fc257f6a2302f62a97b1098130100e5a7613fa86e1849a499"
+    },
+    "init\\papertex\\\u753b\u5e03.bmp": {
+      "sha256": "56fd2208ac9082c2500b155f5dfd312b3289c53b2e5ae259d6b30e50982a5d76"
+    },
+    "init\\scatter\\\u661f.bmp": {
+      "sha256": "ff8a738cfa44cd254ea25c1695195eaea696eefbbffc2f2013524c4a2f132fb7"
+    },
+    "init\\scatter\\\u661f.ini": {
+      "sha256": "7cdc5a3aeb39f75ba31cdc63a4cd59354e464d02983999356caa380515bae0c4"
+    }
+  },
+  "settings": {
+    "settings\\settings2.ssd": {
+      "locked": true,
+      "size": 12288,
+      "mtimeNs": 1792753161432499600
+    },
+    "settings\\brushtex\\\u56fe\u753b\u7eb8.bmp": {
+      "sha256": "6cfc0e01583bfd0a1b1598bb954077acd3502bc5c24524132e3a17dac129137c"
+    },
+    "settings\\brushtex\\\u753b\u5e03.bmp": {
+      "sha256": "56fd2208ac9082c2500b155f5dfd312b3289c53b2e5ae259d6b30e50982a5d76"
+    },
+    "settings\\papertex\\\u56fe\u753b\u7eb8.bmp": {
+      "sha256": "6cfc0e01583bfd0a1b1598bb954077acd3502bc5c24524132e3a17dac129137c"
+    },
+    "settings\\papertex\\\u6c34\u5f691.bmp": {
+      "sha256": "43a13ec4f54eff7aaa77ab2a7a292cdbe58dbccdc6d37d95a1ad1528787c7559"
+    },
+    "settings\\papertex\\\u6c34\u5f692.bmp": {
+      "sha256": "7ac03b1f36bd2a0fc257f6a2302f62a97b1098130100e5a7613fa86e1849a499"
+    },
+    "settings\\papertex\\\u753b\u5e03.bmp": {
+      "sha256": "56fd2208ac9082c2500b155f5dfd312b3289c53b2e5ae259d6b30e50982a5d76"
+    },
+    "settings\\scatter\\\u661f.bmp": {
+      "sha256": "ff8a738cfa44cd254ea25c1695195eaea696eefbbffc2f2013524c4a2f132fb7"
+    },
+    "settings\\scatter\\\u661f.ini": {
+      "sha256": "7cdc5a3aeb39f75ba31cdc63a4cd59354e464d02983999356caa380515bae0c4"
+    },
+    "settings\\brushfom\\blotmap\\\u6e17\u5316.bmp": {
+      "sha256": "3a50c1123d38839112e6efdba622098138f895eeca65a13923eaa00ef5903fb1"
+    },
+    "settings\\brushfom\\blotmap\\\u6e17\u5316\u548c\u6742\u8272.bmp": {
+      "sha256": "75b412bc911f85b71ab0f74648fca9d8a7b0f88bd2eb65cd9f941cc1ca87fa42"
+    },
+    "settings\\brushfom\\bristle\\\u5706\u7b14.bmp": {
+      "sha256": "027c4b9e37a606152c90ccb5b5b0cbfeb384521ba148cbce76c35057cbd6aa30"
+    },
+    "settings\\brushfom\\bristle\\\u5e73\u7b14.bmp": {
+      "sha256": "dc9dc48da8eaa9f627dc5285b4700b88d827aa26a36fcf9f36a559ab9f28a650"
+    },
+    "settings\\brushfom\\bristle\\\u5e73\u9762.bmp": {
+      "sha256": "54ba8e6318a98a6caecdac4ebf8b7b5961d49edcb908523625ce9bc3c2655bf8"
+    },
+    "settings\\brushfom\\brshape\\\u6c34\u5f69\u6d07\u67d3.bmp": {
+      "sha256": "9a259f9b7b94c150ed37061e18cdd8eae55538181ad1afe6dfc2a90b3bdfae57"
+    },
+    "settings\\brushfom\\brshape\\\u6c34\u5f69\u6d07\u67d3.ini": {
+      "sha256": "7b8fe244cb31c5b06b6ffe5c75069fd5287ccaa1b3aeed028f4cdf0eaff51c3b"
+    },
+    "settings\\custool\\ink\\1.saitdat": {
+      "sha256": "c3b25f187bedbfc7cba6fe278ee9f0017339275ce3a0aa772db303240104c9f6"
+    },
+    "settings\\custool\\ink\\10.saitdat": {
+      "sha256": "29590b16594558738a86ada46cebe087edc15485e81a78fb2ffda4edf8d3b4b4"
+    },
+    "settings\\custool\\ink\\11.saitdat": {
+      "sha256": "bfd60a628082c66ef232884d20dfdfbef6e4772ae0bd410bd3cd61cbfcaf121a"
+    },
+    "settings\\custool\\ink\\12.saitdat": {
+      "sha256": "5604d3121ee32724c503fe4561107caf4131a560aec3c8fc3b4fc75ddfd1f6c3"
+    },
+    "settings\\custool\\ink\\13.saitdat": {
+      "sha256": "75bcc123f4f41d68c671da6fb85cf703d2d41d0df6c5e262008111ea8ff21096"
+    },
+    "settings\\custool\\ink\\14.saitdat": {
+      "sha256": "5d144a1df3ac608798876bc269ff3d458b74369384f48a5bfe6d028ba05461d9"
+    },
+    "settings\\custool\\ink\\15.saitdat": {
+      "sha256": "d44228c192cee1f83886c3dcb7ecf81af5702631b3e4f21ff529266412440fb6"
+    },
+    "settings\\custool\\ink\\16.saitdat": {
+      "sha256": "98414d7910e4cd2f4a806a7c1f85402c751f6b6b4425293f299bf563bda1986d"
+    },
+    "settings\\custool\\ink\\17.saitlnk": {
+      "sha256": "4dafce54155d4dc42954e69e13ee6d33994d711677fce85c9e9cd6cce188717d"
+    },
+    "settings\\custool\\ink\\18.saitlnk": {
+      "sha256": "2a39037cb669b30e811a666d5cfb5506c9e549e80c932a709e17f74f2fc9fa8f"
+    },
+    "settings\\custool\\ink\\19.saitdat": {
+      "sha256": "e86e4d253d327a75bf8557fd279b328d9a3dc6a34f267328e3574c3470532e8c"
+    },
+    "settings\\custool\\ink\\2.saitdat": {
+      "sha256": "5a31f278e6bc11c110a6e8ee1c7cc7e5cbe6a7fb95293df624e3edf48fc42a5e"
+    },
+    "settings\\custool\\ink\\20.saitdat": {
+      "sha256": "5e833b77f20b5f383e9c3f5e9e8c8f8f181c09988d86c7ee31d306d9dd4b8d41"
+    },
+    "settings\\custool\\ink\\21.saitdat": {
+      "sha256": "5572199a692d48bcb8de26263571bd25db21109bf34341b6a837c50dc47dc685"
+    },
+    "settings\\custool\\ink\\22.saitdat": {
+      "sha256": "5a31f278e6bc11c110a6e8ee1c7cc7e5cbe6a7fb95293df624e3edf48fc42a5e"
+    },
+    "settings\\custool\\ink\\23.saitdat": {
+      "sha256": "1ba1c8ef0796e7c13a906d20513ada20c83ed0e071e1cab9346407f4e8550d27"
+    },
+    "settings\\custool\\ink\\24.saitdat": {
+      "sha256": "5d144a1df3ac608798876bc269ff3d458b74369384f48a5bfe6d028ba05461d9"
+    },
+    "settings\\custool\\ink\\25.saitdat": {
+      "sha256": "d44228c192cee1f83886c3dcb7ecf81af5702631b3e4f21ff529266412440fb6"
+    },
+    "settings\\custool\\ink\\26.saitdat": {
+      "sha256": "98414d7910e4cd2f4a806a7c1f85402c751f6b6b4425293f299bf563bda1986d"
+    },
+    "settings\\custool\\ink\\27.saitlnk": {
+      "sha256": "bfbd417a738c790e5082acba2bfaf23341aae71b4b0a4f2cc8507d15e1446466"
+    },
+    "settings\\custool\\ink\\28.saitlnk": {
+      "sha256": "45be1b41c2d30eb08634608cb498397dd288bf784ed5724370c389c70b37c107"
+    },
+    "settings\\custool\\ink\\29.saitdat": {
+      "sha256": "a7a3f2967e4bc233e071eea12c3f1fc2d13f11eb352b64ed1392efba389d9698"
+    },
+    "settings\\custool\\ink\\3.saitdat": {
+      "sha256": "4e2ddfcfcbd1a6c59c2e4b43cd37b54e7143b74c384e43f5669207d212a3030f"
+    },
+    "settings\\custool\\ink\\30.saitdat": {
+      "sha256": "2b8f6742182839928a943d7052e259d60f0cabb73320d99b647db64c151338d9"
+    },
+    "settings\\custool\\ink\\4.saitdat": {
+      "sha256": "5d144a1df3ac608798876bc269ff3d458b74369384f48a5bfe6d028ba05461d9"
+    },
+    "settings\\custool\\ink\\5.saitdat": {
+      "sha256": "d44228c192cee1f83886c3dcb7ecf81af5702631b3e4f21ff529266412440fb6"
+    },
+    "settings\\custool\\ink\\6.saitdat": {
+      "sha256": "98414d7910e4cd2f4a806a7c1f85402c751f6b6b4425293f299bf563bda1986d"
+    },
+    "settings\\custool\\ink\\7.saitlnk": {
+      "sha256": "947b8ae71eb9760f9bc0fe7934532f30c26baf397e7019be7aab65f4dbbe5c86"
+    },
+    "settings\\custool\\ink\\8.saitlnk": {
+      "sha256": "c79b1a658615599115303a73ed74bd4c7dd2b1815cb32b097706481e6dc8bbd9"
+    },
+    "settings\\custool\\ink\\9.saitdat": {
+      "sha256": "43bb26ac8fca62fea03a5c1ea6ebfe6d02f45fd1a50084a0742467b35e4de3f8"
+    },
+    "settings\\custool\\ink\\_0.saitset": {
+      "sha256": "aeb2ea111a33a85cdfa746bc41b4dc943c4a8e8317d95e9487ead70b6f8e94ca"
+    },
+    "settings\\custool\\ink\\_1.saitgrp": {
+      "sha256": "ee048da275b502e06774e3fc5407b807f0d37f70dce03171b12a308fdb74bcad"
+    },
+    "settings\\custool\\ink\\_2.saitgrp": {
+      "sha256": "2083086ad33f9f0f5e198c56b4cb2caf5f499bfd8be7c968af6ef410e2fde494"
+    },
+    "settings\\custool\\ink\\_3.saitgrp": {
+      "sha256": "f981f362b0b96fba01d92ff0662d484f552944058ce302d870eb9ca86a029af1"
+    },
+    "settings\\custool\\nrm\\1.saitdat": {
+      "sha256": "3db664c34b09bbfa4756e9efe39f1351820d5b84358fa0edb701b9d45872342f"
+    },
+    "settings\\custool\\nrm\\10.saitdat": {
+      "sha256": "35befcb577e57a6ae51fe4e753ea7570cb2fa42ff93c22c2212ac73eff2855fd"
+    },
+    "settings\\custool\\nrm\\11.saitdat": {
+      "sha256": "d0aba9f8d39bcb73f00c97f4b162ed18a77541adb3b5fe23e7ec92bb25e231ff"
+    },
+    "settings\\custool\\nrm\\12.saitdat": {
+      "sha256": "9921b6fdd99b8a4a15b0dd5ba8d5c40b60b2d1aaeef434b4e3d881d3c4f74f13"
+    },
+    "settings\\custool\\nrm\\13.saitdat": {
+      "sha256": "13580a3afa6ea5d949a2cb16004408b2a1813aeca035582f6f830d5f56a79a54"
+    },
+    "settings\\custool\\nrm\\14.saitdat": {
+      "sha256": "36ac8130892131be9f5ee056cee65a675bd0eb0d53f1618d538fd11fac504a70"
+    },
+    "settings\\custool\\nrm\\15.saitdat": {
+      "sha256": "4b2d770943c10b0ef5b76d4d04b6b6867185199e05c4f5678ea6b7064fffb54c"
+    },
+    "settings\\custool\\nrm\\16.saitdat": {
+      "sha256": "47767046f7f095aec96f8a50cd85943241090b8ab2ca9684e34f3fd1c4cc1802"
+    },
+    "settings\\custool\\nrm\\17.saitdat": {
+      "sha256": "34fbb6d1d3296f410825a75562e314b95c5d79b4ebc8112865f7b96fb4b2cf17"
+    },
+    "settings\\custool\\nrm\\18.saitdat": {
+      "sha256": "47a090e6a95230ebb38ff505e59fd503d49e16ce6a6763a8d99751d3be5e8dfa"
+    },
+    "settings\\custool\\nrm\\19.saitdat": {
+      "sha256": "c1570ed1fd4a8ce22230e1ce7e867b78ef16ef4c6d424a486a1ff255a79bce8f"
+    },
+    "settings\\custool\\nrm\\2.saitdat": {
+      "sha256": "b7753b5a64c5258eb4594ce82a5727b112086afa6d72f0c702f358c4e4538960"
+    },
+    "settings\\custool\\nrm\\20.saitdat": {
+      "sha256": "0a740c169a3477ab9a8e59f800e0695f2a969329dd6368179556654f9471e1e8"
+    },
+    "settings\\custool\\nrm\\21.saitdat": {
+      "sha256": "35e3514395e0cc59192d61a196615569748955433b7439813cd8d82e75ca7158"
+    },
+    "settings\\custool\\nrm\\22.saitdat": {
+      "sha256": "36bc87f9bf68ee1d023dc3aea05065efd5f041c5a5bd6db056df112681cff968"
+    },
+    "settings\\custool\\nrm\\23.saitdat": {
+      "sha256": "e66e49c240a365f9c8876f5023a45f651b1419375ca0d2fcf80164c2c2abadf2"
+    },
+    "settings\\custool\\nrm\\24.saitdat": {
+      "sha256": "c2535448e005608dc5afa156ee26eb2c57f6226517ac8096b9b73d07c16a62b3"
+    },
+    "settings\\custool\\nrm\\25.saitdat": {
+      "sha256": "c6e58e43d388c191176835860c823b63f240367f1da43e834ded2ffad0c65c47"
+    },
+    "settings\\custool\\nrm\\26.saitdat": {
+      "sha256": "3bc91bae239ec076e8dab39b871c0f0470d4095036616c40e98fcd6526389c2f"
+    },
+    "settings\\custool\\nrm\\27.saitdat": {
+      "sha256": "02df84b2ba6d82ecc72e738afff7343936570c54b1006b91738cb417f18d0a21"
+    },
+    "settings\\custool\\nrm\\28.saitdat": {
+      "sha256": "7be298b6ee727bfaf7ffa4f92038358900462cbeac8c6fc7179e05972baa16d8"
+    },
+    "settings\\custool\\nrm\\29.saitdat": {
+      "sha256": "0a740c169a3477ab9a8e59f800e0695f2a969329dd6368179556654f9471e1e8"
+    },
+    "settings\\custool\\nrm\\3.saitdat": {
+      "sha256": "dbe8ed4e38a5aa0184fc66cc63d5328a167efd1093e43a0d2a981930ad0f03ef"
+    },
+    "settings\\custool\\nrm\\30.saitdat": {
+      "sha256": "d52f4ddd0248d863ef9b74b73b798a068f0fc21b15b60a5e24279c46f9794572"
+    },
+    "settings\\custool\\nrm\\31.saitdat": {
+      "sha256": "537a4c1dd056c74371559188cf0dc00ef7c452e4c82c69be9e5794eab4cda31c"
+    },
+    "settings\\custool\\nrm\\32.saitdat": {
+      "sha256": "c0d9f6a4ae365e6c5b175f71ca9e7f4e41aa5e409482bfe148831651cd7bb02e"
+    },
+    "settings\\custool\\nrm\\33.saitdat": {
+      "sha256": "7801219225414e9b5a2a0ebadf2637a81b1ebb496ff98829a2006f65527f3160"
+    },
+    "settings\\custool\\nrm\\34.saitdat": {
+      "sha256": "5fe07143cec0fdfc3dc1c153604b5cc9b97b47c39b86961ce96ec9684042bbb5"
+    },
+    "settings\\custool\\nrm\\35.saitdat": {
+      "sha256": "4c8c0c1ca94583aef530782d2c9e9311ade1a564477c8415614d1f2142b4b0cb"
+    },
+    "settings\\custool\\nrm\\36.saitdat": {
+      "sha256": "d99eccb07d23dc7ec2f0d96a08f4b98f3b1293938a6ad2d96e7820a909b2a4f2"
+    },
+    "settings\\custool\\nrm\\37.saitdat": {
+      "sha256": "1e74bc661c5e1dff37a92c165bbc0bf8e44f78976ef2262e2f7b662b099997b7"
+    },
+    "settings\\custool\\nrm\\38.saitdat": {
+      "sha256": "8e683bab7954a01bb757f831321f6b0616272c3d2a0f537eedb96a32d97aff40"
+    },
+    "settings\\custool\\nrm\\39.saitdat": {
+      "sha256": "dec8c25ed924e06182e880de6a7a78cf84b2f4d81f25bd41becaa32bff595ecf"
+    },
+    "settings\\custool\\nrm\\4.saitdat": {
+      "sha256": "f5a38f8d99c74f13c721c07b5271ba8503f937ca8589a27556a1f160ee0fb81d"
+    },
+    "settings\\custool\\nrm\\5.saitdat": {
+      "sha256": "a8d2b3d04784d5f7dd346808e714bf27c7813e8bf928c2b989ade891f49e446a"
+    },
+    "settings\\custool\\nrm\\6.saitdat": {
+      "sha256": "e425aaca40933aed6e2b26177ec2c4711eb4822372c4f6efb088f685e2905228"
+    },
+    "settings\\custool\\nrm\\7.saitdat": {
+      "sha256": "5c8f53f078decac00a8b141693b398197f0f8c6d8c0df7110ecbebb52b85f527"
+    },
+    "settings\\custool\\nrm\\8.saitdat": {
+      "sha256": "ca4258d21d788690c855a53667c365491709cf1457ef4bacfd921f49e4081dea"
+    },
+    "settings\\custool\\nrm\\9.saitdat": {
+      "sha256": "0a740c169a3477ab9a8e59f800e0695f2a969329dd6368179556654f9471e1e8"
+    },
+    "settings\\custool\\nrm\\_0.saitset": {
+      "sha256": "90f7f516bd9da8f8480a9b3239e524c586c540d2a53cd5f91823c99c66aa41e0"
+    },
+    "settings\\custool\\nrm\\_1.saitgrp": {
+      "sha256": "076e3e16a307aa98350bec1cb5215152aa79e2709aa578eb641c049cf66cc150"
+    },
+    "settings\\custool\\nrm\\_2.saitgrp": {
+      "sha256": "6d471b62ed25e9e4c8d7269a5c773377ecf670c5bac742b18479b226327eae93"
+    },
+    "settings\\custool\\nrm\\_3.saitgrp": {
+      "sha256": "8707d67130f62ca6246ad03037439106ceb745de92da0dfde6e45126f778a50c"
+    },
+    "settings\\custool\\nrm\\_4.saitgrp": {
+      "sha256": "5539db858be24a78633ccf571e08a9df0e9e51cb378db16142782f6849b20de9"
+    },
+    "settings\\custool\\shp\\1.saitdat": {
+      "sha256": "5d144a1df3ac608798876bc269ff3d458b74369384f48a5bfe6d028ba05461d9"
+    },
+    "settings\\custool\\shp\\2.saitdat": {
+      "sha256": "d44228c192cee1f83886c3dcb7ecf81af5702631b3e4f21ff529266412440fb6"
+    },
+    "settings\\custool\\shp\\3.saitlnk": {
+      "sha256": "947b8ae71eb9760f9bc0fe7934532f30c26baf397e7019be7aab65f4dbbe5c86"
+    },
+    "settings\\custool\\shp\\4.saitlnk": {
+      "sha256": "c79b1a658615599115303a73ed74bd4c7dd2b1815cb32b097706481e6dc8bbd9"
+    },
+    "settings\\custool\\shp\\5.saitdat": {
+      "sha256": "45ddd749954cb0b5602c5b5b7ddc2521b4b62b29d2d84057d8759168066f98f1"
+    },
+    "settings\\custool\\shp\\_0.saitset": {
+      "sha256": "09824109dff9aa08a16ac4cf341f3849670545b670febc810d2c4e1d4d351646"
+    },
+    "settings\\custool\\shp\\_1.saitgrp": {
+      "sha256": "05972523474d84f12771c6606bbabdec6c02cb9b0458b24bd93a1c1142c3c793"
+    }
+  },
+  "settingsPath": "C:\\Users\\workY\\Documents\\SYSTEMAX Software Development\\SAIv2",
+  "guestTestPackage": "C:/SAI2LabOutput/S2CE-20240814-UI"
+}

@@ -9,7 +9,7 @@ namespace S2CE {
 
 
         FileS2CE    file        = new();
-        ThemeS2CE   theme       = new();
+        ThemeS2CE   theme       = null!;
         ColorS2CE   colorRGB    = new();
 
         Dictionary<string, byte[]>? themeColor   { get; set; }
@@ -20,41 +20,27 @@ namespace S2CE {
         // true, whenever user want to theme the ciki circle
         public bool AffectColorCircle           { get; set; } = true;
 
-        public void Apply(string themeName) {
+        public void Apply(string themeName, bool launch = true) {
+
+            theme = new ThemeS2CE();
+            saiAddress = BinaryProfileS2CE.GetAddresses(theme.binary);
 
             if (themeName == "classic_sai2")
             {
-                try
-                {
-                    file.UpdateOriginalFile();
-                    file.DeleteOldFile();
-                    Process.Start(PathS2CE.sai2);
+                file.UpdateOriginalFile();
+                if (launch) {
+                    StartSai(PathS2CE.originalSai2);
                     Environment.Exit(0);
                 }
-                catch { }
                 return;
             }
-
-            // Creating backup file to restore data or replace original file
-            // with backup one to recolor it:
-            if (!file.IsOldFileExists()) { file.CreateOldFile(); }
 
             // Get theme vaules:
             var themeDict = JsonSerializer.Deserialize<Dictionary<string, string>>(File.ReadAllText($"./themes/{themeName}.json"));
 
-            //Get `AffectColorCircle` trigger value
-            try
-            {
-                if (themeDict != null)
-                {
-                    AffectColorCircle = int.Parse(themeDict["AffectColorCircle"]) != 0;
-                }
-                    
-            }
-            catch (Exception e)
-            {
-                // null or undefined, so AffectColorCircle = true by default
-            }
+            AffectColorCircle = themeDict is null ||
+                !themeDict.TryGetValue("AffectColorCircle", out string? circleSetting) ||
+                !int.TryParse(circleSetting, out int circleValue) || circleValue != 0;
 
             // Remove AffectColorCircle from theme file since useless any further
             themeDict?.Remove("AffectColorCircle");
@@ -62,7 +48,6 @@ namespace S2CE {
             themeColor = themeDict?.ConvertToByteColorDictionary();
 
             // Getting replacment libraries:
-            saiAddress = JsonSerializer.Deserialize<Dictionary<string, string>>(File.ReadAllText("./ref/init/data/Address.json"))?.ConvertToDecimalAddressDictionary();
             saiColorRGB = JsonSerializer.Deserialize<Dictionary<string, string>>(File.ReadAllText("./ref/init/data/ColorRGB.json"))?.ConvertToByteColorDictionaryRGB();
 
 
@@ -75,34 +60,13 @@ namespace S2CE {
             //Color picker. Little bit chunky, but not bad at all:
             if (AffectColorCircle)
             {
-                Thread partOne = new Thread(() =>
-                {
-                    theme.FixColorPicker(themeColor["Ternary"].NoAlpha(), saiAddress["ColorCircleFrom"], saiAddress["ColorCircleTo"]);
-                })
-                { IsBackground = true };
-
-                Thread partTwo = new Thread(() =>
-                {
-                    theme.FixColorPicker(themeColor["Ternary"].NoAlpha(), saiAddress["ColorCircleFrom2"], saiAddress["ColorCircleTo2"]);
-                })
-                { IsBackground = true };
-
-                Thread partThree = new Thread(() =>
-                {
-                    theme.FixColorPicker(themeColor["Ternary"].NoAlpha(), saiAddress["ColorCircleFrom3"], saiAddress["ColorCircleTo3"]);
-                })
-                { IsBackground = true };
-
-                Thread partFour = new Thread(() =>
-                {
-                    theme.FixColorPicker(themeColor["Ternary"].NoAlpha(), saiAddress["ColorCircleFrom4"], saiAddress["ColorCircleTo4"]);
-                })
-                { IsBackground = true };
-
-                partOne.Start();
-                partTwo.Start();
-                partThree.Start();
-                partFour.Start();
+                // Finish all four disjoint regions before the other skin passes
+                // or SaveTheme can observe a partially recolored color circle.
+                Parallel.Invoke(
+                    () => theme.FixColorPicker(themeColor["Ternary"].NoAlpha(), saiAddress["ColorCircleFrom"], saiAddress["ColorCircleTo"]),
+                    () => theme.FixColorPicker(themeColor["Ternary"].NoAlpha(), saiAddress["ColorCircleFrom2"], saiAddress["ColorCircleTo2"]),
+                    () => theme.FixColorPicker(themeColor["Ternary"].NoAlpha(), saiAddress["ColorCircleFrom3"], saiAddress["ColorCircleTo3"]),
+                    () => theme.FixColorPicker(themeColor["Ternary"].NoAlpha(), saiAddress["ColorCircleFrom4"], saiAddress["ColorCircleTo4"]));
             }
 
             // These regions is for elements, that has amount of artifacts under the main coloring,
@@ -741,11 +705,16 @@ namespace S2CE {
             #endregion
 
             // Saving current theme changes:
-            theme.SaveTheme();
-            Process.Start(PathS2CE.sai2);
-            Environment.Exit(0);
+            theme.SaveTheme(themeColor["Text"].NoAlpha());
+            if (launch) {
+                StartSai(PathS2CE.sai2);
+                Environment.Exit(0);
+            }
 
         }
+        private static void StartSai(string path) => Process.Start(new ProcessStartInfo(Path.GetFullPath(path)) {
+            WorkingDirectory = Path.GetDirectoryName(Path.GetFullPath(path))!, UseShellExecute = true });
+
         public MainTheme() { }
     }
 }

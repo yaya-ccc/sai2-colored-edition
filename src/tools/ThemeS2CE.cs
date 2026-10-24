@@ -1,22 +1,19 @@
 using System.IO;
-using System.Windows.Controls.Primitives;
 using S2CE.Extensions;
 
 namespace S2CE.Tools
 {
     class ThemeS2CE {
         FileS2CE file = new();
+        private readonly byte[] original;
         public ThemeS2CE()
         {
-            if(!file.IsOldFileExists()) binary = ReadFile("./ref/sai2.exe");
-            else binary = ReadFile("./ref/sai2.old.exe");
+            original = file.ReadOriginal();
+            binary = (byte[])original.Clone();
         }
 
         public byte[] binary { get; set; } = [];
 
-        static byte[] ReadFile(string file_name) {
-            return File.ReadAllBytes(file_name);
-        }
         public void SetElementColor(byte[] to_color, int color_address) {
             for (int i = 0; i < to_color.Length; i++) { binary[color_address + i] = to_color[i]; }
         }
@@ -45,7 +42,7 @@ namespace S2CE.Tools
 
             int value = isArtifacted ? 1 : to_color.Length;
             // Find certain sequence position and move on until the end
-            for (int index = start_index; index < end_index; index += value) {
+            for (int index = start_index; index <= end_index - Math.Max(from_color.Length, to_color.Length); index += value) {
                 if (WrongSequence(binary, index, from_color)) { continue; }
                 // Change color in certain sequence
                 for (int col_index = 0; col_index < to_color.Length; col_index++) { binary[index + col_index] = to_color[col_index]; }
@@ -57,7 +54,7 @@ namespace S2CE.Tools
 
             int value = to_color.Length;
             // Find sequence position and move on until the end
-            for (int index = start_index; index < end_index; index += value) {
+            for (int index = start_index; index <= end_index - to_color.Length; index += value) {
                 // Change color in sequence
                 for (int col_index = 0; col_index < to_color.Length; col_index++) { binary[index + col_index] = to_color[col_index]; }
             }
@@ -72,7 +69,7 @@ namespace S2CE.Tools
             foreach (var o in hexLets) {
                 foreach (var i in hexNums) {
                     cirCol = $"#00{o}{i}{o}{i}{o}{i}".toByteColor().NoAlpha();
-                    for (int n = start_index; n < end_index; n++) {
+                    for (int n = start_index; n <= end_index - Math.Max(cirCol.Length, to_color.Length); n++) {
                         if (WrongSequence(binary, n, cirCol)) { continue; }
                         // Change color in certain sequence
                         for (int col_index = 0; col_index < to_color.Length; col_index++) { binary[n + col_index] = to_color[col_index]; }
@@ -84,7 +81,7 @@ namespace S2CE.Tools
             foreach (var o in hexLets) {
                 foreach (var oo in hexLets) {
                     cirCol = $"#00{o}{oo}{o}{oo}{o}{oo}".toByteColor().NoAlpha();
-                    for (int n = start_index; n < end_index; n++) {
+                    for (int n = start_index; n <= end_index - Math.Max(cirCol.Length, to_color.Length); n++) {
                         if (WrongSequence(binary, n, cirCol)) { continue; }
                         // Change color in certain sequence
                         for (int col_index = 0; col_index < to_color.Length; col_index++) { binary[n + col_index] = to_color[col_index]; }
@@ -96,7 +93,7 @@ namespace S2CE.Tools
             foreach (var i in hexNums) {
                 foreach (var o in hexLets) {
                     cirCol = $"#00{i}{o}{i}{o}{i}{o}".toByteColor().NoAlpha();
-                    for (int n = start_index; n < end_index; n++) {
+                    for (int n = start_index; n <= end_index - Math.Max(cirCol.Length, to_color.Length); n++) {
                         if (WrongSequence(binary, n, cirCol)) { continue; }
                         // Change color in certain sequence
                         for (int col_index = 0; col_index < to_color.Length; col_index++) { binary[n + col_index] = to_color[col_index]; }
@@ -110,7 +107,7 @@ namespace S2CE.Tools
             for (int o = 2; o < hexLets.Length; o++) {
                 for (int i = 9; i < hexAll.Length; i++) {
                     cirCol = $"#00F9{hexLets[o]}{hexAll[i]}E2".toByteColor().NoAlpha();
-                    for (int n = start_index; n < end_index; n++) {
+                    for (int n = start_index; n <= end_index - Math.Max(cirCol.Length, to_color.Length); n++) {
                         if (WrongSequence(binary, n, cirCol)) { continue; }
                         // Change color in certain sequence
                         for (int col_index = 0; col_index < to_color.Length; col_index++) { binary[n + col_index] = to_color[col_index]; }
@@ -120,7 +117,7 @@ namespace S2CE.Tools
             for (int o = 2; o < hexLets.Length; o++) {
                 for (int i = 2; i < hexAll.Length; i++) {
                     cirCol = $"#00F9F9{hexLets[o]}{hexAll[i]}".toByteColor().NoAlpha();
-                    for (int n = start_index; n < end_index; n++) {
+                    for (int n = start_index; n <= end_index - Math.Max(cirCol.Length, to_color.Length); n++) {
                         if (WrongSequence(binary, n, cirCol)) { continue; }
                         // Change color in certain sequence
                         for (int col_index = 0; col_index < to_color.Length; col_index++) { binary[n + col_index] = to_color[col_index]; }
@@ -132,7 +129,7 @@ namespace S2CE.Tools
             for (int o = 2; o < hexLets.Length; o++) {
                 for (int i = 0; i < hexAll.Length; i++) {
                     cirCol = $"#00{o}{i}F9CA".toByteColor().NoAlpha();
-                    for (int n = start_index; n < end_index; n++) {
+                    for (int n = start_index; n <= end_index - Math.Max(cirCol.Length, to_color.Length); n++) {
                         if (WrongSequence(binary, n, cirCol)) { continue; }
                         // Change color in certain sequence
                         for (int col_index = 0; col_index < to_color.Length; col_index++) { binary[n + col_index] = to_color[col_index]; }
@@ -142,7 +139,7 @@ namespace S2CE.Tools
             for (int o = 2; o < hexLets.Length; o++) {
                 for (int i = 2; i < hexAll.Length; i++) {
                     cirCol = $"#00CAF9{hexLets[o]}{hexAll[i]}".toByteColor().NoAlpha();
-                    for (int n = start_index; n < end_index; n++) {
+                    for (int n = start_index; n <= end_index - Math.Max(cirCol.Length, to_color.Length); n++) {
                         if (WrongSequence(binary, n, cirCol)) { continue; }
                         // Change color in certain sequence
                         for (int col_index = 0; col_index < to_color.Length; col_index++) { binary[n + col_index] = to_color[col_index]; }
@@ -154,7 +151,7 @@ namespace S2CE.Tools
             for (int o = 2; o < hexLets.Length; o++) {
                 for (int i = 0; i < hexAll.Length; i++) {
                     cirCol = $"#00{o}{i}F9E2".toByteColor().NoAlpha();
-                    for (int n = start_index; n < end_index; n++) {
+                    for (int n = start_index; n <= end_index - Math.Max(cirCol.Length, to_color.Length); n++) {
                         if (WrongSequence(binary, n, cirCol)) { continue; }
                         // Change color in certain sequence
                         for (int col_index = 0; col_index < to_color.Length; col_index++) { binary[n + col_index] = to_color[col_index]; }
@@ -164,7 +161,7 @@ namespace S2CE.Tools
             for (int o = 4; o < hexLets.Length; o++) {
                 for (int i = 2; i < hexAll.Length; i++) {
                     cirCol = $"#00CACA{hexLets[o]}{hexAll[i]}".toByteColor().NoAlpha();
-                    for (int n = start_index; n < end_index; n++) {
+                    for (int n = start_index; n <= end_index - Math.Max(cirCol.Length, to_color.Length); n++) {
                         if (WrongSequence(binary, n, cirCol)) { continue; }
                         // Change color in certain sequence
                         for (int col_index = 0; col_index < to_color.Length; col_index++) { binary[n + col_index] = to_color[col_index]; }
@@ -175,8 +172,9 @@ namespace S2CE.Tools
         /// <summary>
         /// Saves current theme changes.
         /// </summary>
-        public void SaveTheme() {
-            File.WriteAllBytes("./ref/sai2.exe", binary);
+        public void SaveTheme(byte[] textColor) {
+            BinaryProfileS2CE.ApplyControlTextColor(original, binary, textColor);
+            file.SaveTheme(original, binary);
         }
     }
 }
