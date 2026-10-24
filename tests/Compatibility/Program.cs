@@ -194,6 +194,18 @@ try
     catch (FileNotFoundException) { }
     Assert(!File.Exists("ref/sai2.old.exe"), "Missing theme created a backup");
     Assert(File.ReadAllBytes("ref/sai2.exe").SequenceEqual(target), "Missing theme modified executable");
+    string preferencesFile = Path.Combine(temporary, "preferences", "preferences.json");
+    var preferences = new LauncherPreferencesS2CE(preferencesFile);
+    Assert(preferences.Read() == new LauncherPreferences(), "Fresh launcher should require a source selection");
+    Assert(!File.Exists(preferencesFile), "Reading preferences wrote a file");
+    var selected = new LauncherPreferences("C:\\绘图 工具\\sai2.exe", "example_retro_theme");
+    preferences.Save(selected);
+    Assert(preferences.Read() == selected, "Launcher did not remember source/theme selection");
+    preferences.Save(selected with { ThemeId = "example_cappuccino_theme" });
+    Assert(preferences.Read().ThemeId == "example_cappuccino_theme", "Theme preference was not updated");
+    Assert(Directory.GetFiles(Path.GetDirectoryName(preferencesFile)!).Length == 1, "Preference write left temporary files");
+    File.WriteAllText(preferencesFile, "{broken json");
+    Assert(preferences.Read() == new LauncherPreferences(), "Corrupt preferences prevent startup");
     Console.WriteLine($"PASS all {assertions} assertions; unsupported builds and conflicting backups leave files unchanged");
     return 0;
 }

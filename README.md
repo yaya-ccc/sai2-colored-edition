@@ -113,7 +113,7 @@ Quick start guide can be found [here](https://github.com/supchyan/sai2-colored-e
 ## Development
 Local continuation: support for the verified **2024.08.14 x64 localized build** is documented in [the compatibility guide](docs/20240814-support.md), including packaging and regression checks. Both supported builds are selected by exact executable hash.
 
-Version 1.2.0 detects verified SAI2 builds and creates a separate themed EXE/INI beside the selected original. See [usage and verification](docs/multiversion-copy.md).
+Version 1.3.0 provides a simplified Chinese launcher with theme cards, remembered selections and a separate restore action. It detects verified SAI2 builds and creates a separate themed EXE/INI beside the selected original. See [usage and verification](docs/multiversion-copy.md).
 
 If you want to build this project from source, you need to install `.NET SDK 8.0+` and compile this project using `Visual Studio`.
 

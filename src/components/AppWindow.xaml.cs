@@ -1,207 +1,182 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.IO;
-using System.Text;
-using System.Security.Principal;
+using System.Reflection;
+using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
-using S2CE.Extensions;
-using System.Text.Json;
 using System.Windows.Media;
-using System.Windows.Shapes;
-using System.Reflection;
-using S2CE.Tools;
 using Microsoft.Win32;
-using Path = System.IO.Path;
+using S2CE.Tools;
 
-namespace S2CE.Components
+namespace S2CE.Components;
+
+public partial class AppWindow : Window
 {
-    public partial class AppWindow : Window
+    private readonly LauncherPreferencesS2CE preferences = new();
+    private CompatibilityResult? compatibility;
+    private string? sourcePath;
+    private string? preferenceError;
+    private string? operationError;
+    private bool busy;
+
+    public AppWindow() => InitializeComponent();
+
+    private void Window_Loaded(object sender, RoutedEventArgs e)
     {
-        public AppWindow()
+        versionLabel.Text = "S2CE " + Assembly.GetExecutingAssembly().GetName().Version?.ToString(3);
+        var saved = preferences.Read();
+        var themes = new List<ThemeOption>();
+        try
         {
-            InitializeComponent();
+            foreach (string file in Directory.GetFiles("./themes", "*.json").Order())
+            {
+                try { themes.Add(ThemeOption.Load(file)); }
+                catch (Exception exception) when (exception is IOException or JsonException or InvalidDataException)
+                { preferenceError = "未加载主题 " + Path.GetFileName(file) + "：" + exception.Message; }
+            }
         }
+        catch (IOException exception) { preferenceError = "无法读取主题目录：" + exception.Message; }
+        themeList.ItemsSource = themes;
+        themeList.SelectedItem = themes.FirstOrDefault(theme => theme.Id == saved.ThemeId) ?? themes.FirstOrDefault();
+        if (themes.Count == 0) themeHint.Text = "未找到可用主题，请检查程序旁的 themes 文件夹。";
+        if (!string.IsNullOrWhiteSpace(saved.SourcePath)) SelectSource(saved.SourcePath);
+        else UpdateActions();
+    }
 
-        public string? selectedTheme { get; private set; }
-        MainTheme mainTheme = new();
+    private void SelectSai_ButtonClicked(object sender, RoutedEventArgs e)
+    {
+        var dialog = new OpenFileDialog {
+            Title = "选择你使用的原版 sai2.exe", Filter = "SAI2 程序 (*.exe)|*.exe",
+            CheckFileExists = true, Multiselect = false, FileName = "sai2.exe"
+        };
+        if (sourcePath is not null && Directory.Exists(Path.GetDirectoryName(sourcePath)))
+            dialog.InitialDirectory = Path.GetDirectoryName(sourcePath);
+        if (dialog.ShowDialog(this) == true) SelectSource(dialog.FileName);
+    }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+    private void SelectSource(string path)
+    {
+        try
         {
-            username.Text = $"{WindowsIdentity.GetCurrent().Name.Split('\\')[1]}!";
-            try
-            {
-                changeLog.Text = File.ReadAllText("CHANGELOG.md", Encoding.UTF8);
-            } catch
-            {
-                changeLog.Text = "Кто-то удалил мой CHANGELOG.md...";
-            }
-
-            version.Text += AssemblyProductVersion.Substring(0,5);
-
-            AddItem("classic_sai2", true);
-
-            var reader = Directory.GetFiles("./themes/");
-            foreach (var f in reader)
-            {
-                AddItem(f);
-            }
-
-            PathS2CE.UseSource(Path.GetFullPath("./ref/sai2.exe"));
+            PathS2CE.UseSource(path);
+            sourcePath = Path.GetFullPath(path);
+            operationError = null;
+            operationMessage.Text = "先关闭正在运行的 SAI。原版程序和配置会保留。";
+            operationMessage.Foreground = (Brush)FindResource("MutedText");
             RefreshCompatibility();
+            RememberChoice();
         }
+        catch (Exception exception) when (exception is IOException or InvalidDataException or ArgumentException)
+        { ShowOperationError("请选择原版 sai2.exe。", exception); }
+    }
 
-        private void Item_Selected(object sender, RoutedEventArgs e)
+    private void RefreshSai_ButtonClicked(object sender, RoutedEventArgs e) => RefreshCompatibility();
+
+    private bool RefreshCompatibility()
+    {
+        if (sourcePath is null) return false;
+        compatibility = CompatibilityS2CE.CheckCurrent();
+        sourcePathLabel.Text = compatibility.Path;
+        sourcePathLabel.ToolTip = compatibility.Path;
+        selectSaiButton.Content = "更换程序…";
+        statusLabel.Text = compatibility.IsSupported ? "可换肤" : "暂不可用";
+        statusBadge.Background = new SolidColorBrush(compatibility.IsSupported ? Color.FromRgb(40, 66, 52) : Color.FromRgb(77, 53, 40));
+        statusLabel.Foreground = new SolidColorBrush(compatibility.IsSupported ? Color.FromRgb(163, 217, 190) : Color.FromRgb(240, 188, 151));
+        buildLabel.Text = compatibility.Build.Replace("(localized)", "· 汉化版").Replace("(bundled)", "· 内置构建");
+        sourceHint.Visibility = compatibility.IsSupported ? Visibility.Collapsed : Visibility.Visible;
+        sourceHint.Text = compatibility.Sha256.Length > 0
+            ? "这个构建暂未适配，请更换 SAI2 程序。"
+            : "无法使用此程序或现有主题副本，请展开检测详情查看原因。";
+        detectionExpander.Visibility = Visibility.Visible;
+        string supported;
+        try { supported = string.Join("；", BinaryProfileS2CE.SupportedBuilds()); }
+        catch (Exception exception) when (exception is IOException or JsonException) { supported = exception.Message; }
+        detectionDetails.Text = compatibility.Details + "\n\n原文件：" + compatibility.Path +
+            "\n生成副本：" + Path.GetFullPath(PathS2CE.sai2) + "\nSHA-256：" + compatibility.Sha256 +
+            "\n\n已适配：" + supported + (preferenceError is null ? "" : "\n\n" + preferenceError) +
+            (operationError is null ? "" : "\n\n本次操作：" + operationError);
+        UpdateActions();
+        return compatibility.IsSupported;
+    }
+
+    private void Theme_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        UpdateActions();
+        RememberChoice();
+    }
+
+    private void UpdateActions()
+    {
+        bool supported = compatibility?.IsSupported == true;
+        selectSaiButton.IsEnabled = refreshSaiButton.IsEnabled = themeList.IsEnabled = !busy;
+        launchButton.IsEnabled = !busy && supported && themeList.SelectedItem is ThemeOption;
+        launchButton.Content = busy ? "正在处理…" : sourcePath is null ? "请先选择 SAI2" : "生成主题并启动 SAI";
+        restoreButton.Visibility = supported && compatibility?.IsThemed == true ? Visibility.Visible : Visibility.Collapsed;
+        restoreButton.IsEnabled = !busy;
+        busyProgress.Visibility = busy ? Visibility.Visible : Visibility.Collapsed;
+    }
+
+    private void RememberChoice()
+    {
+        if (sourcePath is null || compatibility?.IsSupported != true) return;
+        try { preferences.Save(new(sourcePath, (themeList.SelectedItem as ThemeOption)?.Id)); }
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
+        { preferenceError = "无法记住本次选择：" + exception.Message; }
+    }
+
+    private async void Launch_ButtonClicked(object sender, RoutedEventArgs e)
+    {
+        if (themeList.SelectedItem is ThemeOption theme) await ApplyAndLaunch(theme.Id, theme.Name, false);
+    }
+
+    private async void Restore_ButtonClicked(object sender, RoutedEventArgs e) =>
+        await ApplyAndLaunch("classic_sai2", "原版", true);
+
+    private async Task ApplyAndLaunch(string themeId, string name, bool restore)
+    {
+        if (busy || !RefreshCompatibility()) return;
+        busy = true;
+        operationError = null;
+        operationMessage.Text = restore ? "正在清理主题副本…" : "正在生成「" + name + "」主题副本…";
+        operationMessage.Foreground = (Brush)FindResource("MutedText");
+        UpdateActions();
+        bool generated = false;
+        try
         {
-            foreach (ListBoxItem item in appList.Items)
-            {
-                if (item.IsFocused) selectedTheme = item.Name;
-            }
+            await Task.Run(() => new MainTheme().Apply(themeId, false));
+            generated = true;
+            string executable = Path.GetFullPath(restore ? PathS2CE.originalSai2 : PathS2CE.sai2);
+            Process.Start(new ProcessStartInfo(executable) { UseShellExecute = true, WorkingDirectory = Path.GetDirectoryName(executable)! });
+            operationMessage.Text = restore ? "已清理主题副本并启动原版，原文件保持不变。" :
+                "已启动「" + name + "」。下次可直接运行安装目录中的 sai2-colored.exe。";
+            operationMessage.Foreground = (Brush)FindResource("Accent");
+            RememberChoice();
         }
-
-        private async void Launch_ButtonClicked(object sender, RoutedEventArgs e)
+        catch (Exception exception)
         {
-            if (!RefreshCompatibility()) return;
-            launchButton.IsEnabled = false;
-            selectSaiButton.IsEnabled = refreshSaiButton.IsEnabled = appList.IsEnabled = false;
-            launchButton.Content = "Running";
-            try
-            {
-                await Task.Run(() => mainTheme.Apply(selectedTheme ?? "classic_sai2"));
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(this, exception.Message, "SAI2 theme could not be applied", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            finally
-            {
-                selectSaiButton.IsEnabled = refreshSaiButton.IsEnabled = true;
-                launchButton.Content = "Save & Run";
-                RefreshCompatibility();
-            }
+            ShowOperationError(generated ? "处理完成，但未能启动 SAI。" : "操作未完成，请先关闭 SAI 并检查目录是否可写。", exception);
         }
-
-        private bool RefreshCompatibility()
+        finally
         {
-            var result = CompatibilityS2CE.CheckCurrent();
-            compatibilityTitle.Text = (result.IsSupported ? "支持 · " : "不可换肤 · ") + result.Build;
-            compatibilityTitle.Foreground = new SolidColorBrush(result.IsSupported ? Color.FromRgb(159, 255, 220) : Color.FromRgb(255, 185, 135));
-            compatibilityPath.Text = "原文件：" + result.Path;
-            compatibilityPath.ToolTip = "SHA-256: " + result.Sha256;
-            compatibilityDetails.Text = result.Details + Environment.NewLine +
-                "生成副本：" + Path.GetFullPath(PathS2CE.sai2) + Environment.NewLine +
-                "同时生成同名 INI，保留原 EXE/INI；classic 清理生成的副本并启动原版。";
-            compatibilityDetails.ToolTip = compatibilityDetails.Text;
-            try { supportedBuilds.Text = "已适配：" + string.Join("；", BinaryProfileS2CE.SupportedBuilds()); }
-            catch { supportedBuilds.Text = "适配目录无法读取。"; }
-            launchButton.IsEnabled = appList.IsEnabled = result.IsSupported;
-            return result.IsSupported;
+            busy = false;
+            RefreshCompatibility();
+            UpdateActions();
         }
+    }
 
-        private void SelectSai_ButtonClicked(object sender, RoutedEventArgs e)
-        {
-            var dialog = new OpenFileDialog { Title = "选择原版 sai2.exe（原文件保持不变）",
-                Filter = "SAI2 executable (*.exe)|*.exe", CheckFileExists = true, Multiselect = false };
-            if (dialog.ShowDialog(this) != true) return;
-            try
-            {
-                PathS2CE.UseSource(dialog.FileName);
-                RefreshCompatibility();
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(this, exception.Message, "SAI2 selection", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
+    private void ShowOperationError(string message, Exception exception)
+    {
+        operationError = exception.Message;
+        operationMessage.Text = message;
+        operationMessage.Foreground = new SolidColorBrush(Color.FromRgb(240, 188, 151));
+        detectionExpander.Visibility = Visibility.Visible;
+        detectionExpander.IsExpanded = true;
+        detectionDetails.Text = message + "\n" + exception.Message;
+    }
 
-        private void RefreshSai_ButtonClicked(object sender, RoutedEventArgs e) => RefreshCompatibility();
-        private void Git_ButtonClicked(object sender, RoutedEventArgs e)
-        {
-            Process.Start(new ProcessStartInfo("https://github.com/supchyan/sai2-colored-edition") { UseShellExecute = true });
-        }
-        private void Dis_ButtonClicked(object sender, RoutedEventArgs e)
-        {
-            Process.Start(new ProcessStartInfo("https://discord.gg/dGF8p9UGyM") { UseShellExecute = true });
-        }
-        
-        void AddItem(string f, bool vanilla = false)
-        {   
-            try
-            {
-                ListBoxItem item = new ListBoxItem()
-                {
-                    Name = f.PurifyName(),
-                };
-
-                StackPanel panel = new StackPanel()
-                {
-                    Orientation = Orientation.Horizontal,
-                };
-
-                item.Content = panel;
-
-                Dictionary<string, string>? colors = new Dictionary<string, string>() {
-                    { "0","#C0C0C0" },
-                    { "1","#FFFFFF" },
-                    { "2","#CCCCCC" },
-                    { "3","#000000" },
-                    { "4","#BBBBBB" },
-                    { "5","#8E8E8E" },
-                };
-
-                if (!vanilla)
-                {
-                    colors = JsonSerializer.Deserialize<Dictionary<string, string>>(File.ReadAllText(f));
-
-                    // Remove AffectColorCircle trigger
-                    colors?.Remove("AffectColorCircle");
-                }
-                else
-                {
-                    selectedTheme = f;
-                    item.IsSelected = true;
-                }
-                if (colors != null)
-                {
-                    foreach (var col in colors.Values)
-                    {
-                        panel.Children.Add(new Rectangle
-                        {
-                            Fill = new SolidColorBrush(Color.FromRgb(col.toByteColor()[2], col.toByteColor()[1], col.toByteColor()[0])),
-                            Width = 12,
-                            Height = 12,
-                            HorizontalAlignment = HorizontalAlignment.Center,
-                            VerticalAlignment = VerticalAlignment.Center,
-                        });
-                    }
-                }
-                
-                panel.Children.Add(new TextBlock()
-                {
-                    Text = f.PurifyName(),
-                    VerticalAlignment = VerticalAlignment.Center,
-                    HorizontalAlignment = HorizontalAlignment.Center,
-                    Margin = new Thickness(10, 0, 0, 0),
-                });
-
-                item.Selected += Item_Selected;
-                appList.Items.Add(item);
-            }
-            catch
-            {
-
-            }
-        }
-
-        private static string AssemblyProductVersion
-        {
-            get
-            {
-                object[] attributes = Assembly.GetExecutingAssembly()
-                    .GetCustomAttributes(typeof(AssemblyInformationalVersionAttribute), false);
-                return attributes.Length == 0 ?
-                    "" :
-                    ((AssemblyInformationalVersionAttribute)attributes[0]).InformationalVersion;
-            }
-        }
+    protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+    {
+        if (busy) e.Cancel = true;
+        base.OnClosing(e);
     }
 }

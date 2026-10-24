@@ -1,3 +1,8 @@
+1.3.0 - Simplified Chinese launcher
+Replace the changelog sidebar with a focused source/theme/action flow.
+Add theme cards, collapsed detection details and a separate restore action.
+Remember the selected source and theme; keep the launcher open after applying.
+
 1.2.0 - Automatic build detection and separate themed executable
 Select the original SAI2 EXE to detect supported builds before applying.
 Generate sai2-colored.exe and sai2-colored.ini alongside the original.

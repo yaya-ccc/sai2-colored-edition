@@ -1,100 +1,138 @@
-﻿<Window x:Class="S2CE.Components.AppWindow"
+<Window x:Class="S2CE.Components.AppWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:S2CE"
-        mc:Ignorable="d"
-        Title="S2CE" Height="740" Width="1060" MinHeight="600" MinWidth="900" Loaded="Window_Loaded" FontFamily="{StaticResource Monocraft}" FontSize="15" WindowStartupLocation="CenterScreen" ResizeMode="CanResizeWithGrip">
-
-    <Grid Background="#FF1B1B1E">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.5*"/>
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid x:Name="leftGrid" Grid.Column="0" Margin="15,15,0,15">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="50"/>
-            </Grid.RowDefinitions>
-            <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        Title="S2CE · SAI2 主题" Width="860" Height="730" MinWidth="740" MinHeight="650"
+        Background="{StaticResource AppBackground}" Foreground="{StaticResource MainText}"
+        FontFamily="Microsoft YaHei UI, Segoe UI" FontSize="14" Loaded="Window_Loaded"
+        WindowStartupLocation="CenterScreen" UseLayoutRounding="True">
+    <Grid Margin="28,24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid Margin="0,0,0,22">
             <StackPanel>
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left">
-                    <Path VerticalAlignment="Center" Stretch="Fill" Width="20" Height="18" Cursor="Hand"
-                        Data="M8 0H4V2H2V4H0V10H2V12H4V14H6V16H8V18H10V20H12V18H14V16H16V14H18V12H20V10H22V4H20V2H18V0H14V2H12V4H10V2H8V0ZM8 2V4H10V6H12V4H14V2H18V4H20V10H18V12H16V14H14V16H12V18H10V16H8V14H6V12H4V10H2V4H4V2H8Z" Fill="#FFFF274E"/>
-                    <TextBlock VerticalAlignment="Center" Foreground="#FFCCCCCC" Margin="10,0,0,0" FontSize="18" Text="Welcome back, " />
-                </StackPanel>
-                <TextBlock Name="username" VerticalAlignment="Top" Foreground="#FFCCCCCC" Margin="0,10,0,0" FontSize="18" Text="username!" HorizontalAlignment="Left" />
-                <TextBlock VerticalAlignment="Top" Foreground="#FF717070" Margin="0,20,0,0" Text="ChangeLog:" HorizontalAlignment="Left" FontSize="18" />
-                <TextBox Name="changeLog" TextWrapping="Wrap" Foreground="#FF9FFFDC" Text="This is changelog placeholder! If you see this, nothing is working properly here!" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" Focusable="False" SelectionTextBrush="{x:Null}" Width="{Binding ActualWidth, ElementName=grid, Mode=OneWay}" SelectionOpacity="0" AllowDrop="False" IsHitTestVisible="False" IsTabStop="False" IsEnabled="False" Padding="-3,0,0,0" Margin="0,10,0,0" />
+                <TextBlock Text="给 SAI 换个配色" FontSize="26" FontWeight="SemiBold"/>
+                <TextBlock Text="选择你使用的 SAI2，生成独立的主题副本。" Foreground="{StaticResource MutedText}" Margin="0,7,0,0"/>
             </StackPanel>
-            </ScrollViewer>
-            <Grid Grid.Row="1">
-                <TextBlock Name="version" Text="ver. " VerticalAlignment="Bottom" HorizontalAlignment="Right" Foreground="#FF717070"/>
-                <Button Name="gitButton" Click="Git_ButtonClicked" Padding="7" Margin="0,0,20,0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="{Binding Width, ElementName=gitButton}" ToolTip="Project on GitHub">
-                    <Button.Content>
-                        <Path HorizontalAlignment="Center" 
-                            VerticalAlignment="Center" 
-                            Stretch="Fill" 
-                            Width="24" Height="24" Cursor="Hand" 
-                            Fill="{Binding Foreground, ElementName=gitButton}"
-                            Data="M16 0C7.164 0 0 7.164 0 16C0 23.4973 5.16267 29.7707 12.1227 31.5067C12.048 31.2907 12 31.04 12 30.7293V27.9947C11.3507 27.9947 10.2627 27.9947 9.98933 27.9947C8.89467 27.9947 7.92133 27.524 7.44933 26.6493C6.92533 25.6773 6.83467 24.1907 5.536 23.2813C5.15067 22.9787 5.444 22.6333 5.888 22.68C6.708 22.912 7.388 23.4747 8.028 24.3093C8.66533 25.1453 8.96533 25.3347 10.156 25.3347C10.7333 25.3347 11.5973 25.3013 12.4107 25.1733C12.848 24.0627 13.604 23.04 14.528 22.5573C9.2 22.0093 6.65733 19.3587 6.65733 15.76C6.65733 14.2107 7.31733 12.712 8.43867 11.4493C8.07067 10.196 7.608 7.64 8.58 6.66667C10.9773 6.66667 12.4267 8.22133 12.7747 8.64133C13.9693 8.232 15.2813 8 16.66 8C18.0413 8 19.3587 8.232 20.556 8.644C20.9 8.22667 22.3507 6.66667 24.7533 6.66667C25.7293 7.64133 25.2613 10.208 24.8893 11.4587C26.004 12.7187 26.66 14.2133 26.66 15.76C26.66 19.356 24.1213 22.0053 18.8013 22.556C20.2653 23.32 21.3333 25.4667 21.3333 27.084V30.7293C21.3333 30.868 21.3027 30.968 21.2867 31.0867C27.5213 28.9013 32 22.9813 32 16C32 7.164 24.836 0 16 0Z">
-                        </Path>
-                    </Button.Content>
-                </Button>
-                <Button Name="disButton" Click="Dis_ButtonClicked" Padding="7" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="{Binding ActualWidth, ElementName=disButton, Mode=OneWay}" Margin="62,0,0,0" ToolTip="Discord Server">
-                    <Button.Content>
-                        <Path 
-                            VerticalAlignment="Center" 
-                            Stretch="Fill" 
-                            Width="24" Height="16" Cursor="Hand" 
-                            Fill="{Binding Foreground, ElementName=disButton}"
-                            Data="M81.596 9.29999C80.244 7.25799 78.33 5.69599 76.06 4.78799C71.132 2.81199 66.894 1.49199 63.102 0.747995C60.442 0.227995 57.808 1.53599 56.542 3.99999L56.226 4.61599C53.418 4.30599 50.436 4.20199 47.04 4.28799C43.558 4.20399 40.566 4.30599 37.754 4.61599L37.44 3.99999C36.174 1.53599 33.536 0.229995 30.882 0.749995C27.09 1.49199 22.85 2.812 17.924 4.79C15.656 5.698 13.742 7.25799 12.388 9.30199C2.946 23.564 -0.753997 38.948 1.078 56.336C1.142 56.946 1.482 57.492 2 57.818C9.264 62.398 15.55 65.534 21.782 67.69C24.388 68.6 27.278 67.582 28.816 65.232L31.558 61.03C29.374 60.206 27.242 59.23 25.198 58.064C24.24 57.518 23.906 56.296 24.452 55.338C24.998 54.376 26.22 54.038 27.18 54.592C33.262 58.06 40.138 59.894 47.064 59.894C53.99 59.894 60.866 58.06 66.948 54.592C67.906 54.038 69.128 54.376 69.676 55.338C70.222 56.296 69.888 57.518 68.93 58.064C66.818 59.27 64.61 60.274 62.348 61.112L65.17 65.316C66.332 67.046 68.25 68.03 70.226 68.03C70.87 68.03 71.52 67.924 72.152 67.708C78.402 65.55 84.7 62.41 91.98 57.82C92.498 57.494 92.838 56.946 92.902 56.338C94.738 38.948 91.038 23.562 81.596 9.29999ZM34.216 43.966C30.364 43.966 27.194 39.908 27.194 34.976C27.194 30.044 30.364 25.986 34.216 25.986C38.068 25.986 41.238 30.044 41.238 34.976C41.238 39.908 38.068 43.966 34.216 43.966ZM60.202 43.914C56.386 43.914 53.246 39.832 53.246 34.87C53.246 29.908 56.386 25.826 60.202 25.826C64.018 25.826 67.158 29.908 67.158 34.87C67.158 39.832 64.018 43.914 60.202 43.914Z" RenderTransformOrigin="0.5,0.5">
-                            <Path.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform/>
-                                    <SkewTransform AngleY="0.08"/>
-                                    <RotateTransform/>
-                                    <TranslateTransform Y="0.015"/>
-                                </TransformGroup>
-                            </Path.RenderTransform>
-                        </Path>
-                    </Button.Content>
-                </Button>
-            </Grid>
+            <TextBlock Name="versionLabel" Foreground="{StaticResource MutedText}" FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,7,0,0"/>
         </Grid>
-        <GridSplitter Grid.Column="1" Margin="15,0,15,0"
-            Width="3" Background="#FF717070" 
-            HorizontalAlignment="Center" Cursor="SizeWE"/>
-        <Grid x:Name="rightGrid" Grid.Column="2" Margin="0,15,15,15">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-                <Grid Grid.Row="0" VerticalAlignment="Top">
-                    <StackPanel Orientation="Horizontal">
-                        <Path Stretch="Fill" Width="18" Height="20" Cursor="Hand" Fill="White" VerticalAlignment="Center" Margin="0,0,10,0"
-                            Data="M6 0H8V2H6V0ZM10 4V2H8V4H6V6H4V8H2V10H0V12H2V14H4V16H6V18H8V20H10V18H12V16H14V14H16V20H18V10H16V8H14V6H12V4H10ZM10 4V6H12V8H14V10H16V12H14H12H10H8H6H4H2V10H4V8H6V6H8V4H10Z" />
-                        <TextBlock x:Name="textBlock" FontSize="18" Text="Select theme" Foreground="#FFCCCCCC" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,20,0"/>
-                    </StackPanel>
-                    <Button Name="launchButton" Content="Save &amp; Run" IsEnabled="False" Click="Launch_ButtonClicked" HorizontalAlignment="Right" VerticalAlignment="Center" />
-                </Grid>
-                <Border Grid.Row="1" Margin="0,15,0,0" Padding="12" BorderBrush="#555555" BorderThickness="1" TextElement.FontFamily="Segoe UI">
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="0,0,4,0">
+            <StackPanel>
+                <Border Background="{StaticResource Surface}" BorderBrush="{StaticResource Outline}" BorderThickness="1" CornerRadius="12" Padding="20">
                     <StackPanel>
-                        <TextBlock Name="compatibilityTitle" Text="正在检测 SAI2…" Foreground="#CCCCCC" FontSize="16" TextWrapping="Wrap"/>
-                        <TextBlock Name="compatibilityPath" Foreground="#CCCCCC" FontSize="12" Margin="0,6,0,0" TextWrapping="Wrap"/>
-                        <TextBlock Name="compatibilityDetails" Foreground="#BBBBBB" FontSize="13" Margin="0,6,0,0" TextWrapping="Wrap" MaxHeight="100" TextTrimming="CharacterEllipsis"/>
-                        <TextBlock Name="supportedBuilds" Foreground="#AAAAAA" FontSize="12" Margin="0,6,0,0" TextWrapping="Wrap"/>
-                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                            <Button Name="selectSaiButton" Content="选择原版 SAI2…" FontSize="13" Padding="8,5" Click="SelectSai_ButtonClicked"/>
-                            <Button Name="refreshSaiButton" Content="重新检测" FontSize="13" Padding="8,5" Margin="10,0,0,0" Click="RefreshSai_ButtonClicked"/>
+                        <Grid>
+                            <TextBlock Text="1   选择 SAI2" Style="{StaticResource SectionTitle}" VerticalAlignment="Center"/>
+                            <Button Name="selectSaiButton" Content="选择程序…" Click="SelectSai_ButtonClicked" HorizontalAlignment="Right" AutomationProperties.Name="选择原版 SAI2 程序"/>
+                        </Grid>
+                        <TextBlock Name="sourcePathLabel" Text="选择你平时使用的 sai2.exe" Foreground="{StaticResource MutedText}"
+                                   Margin="0,14,0,0" TextTrimming="CharacterEllipsis" ToolTipService.ShowDuration="20000"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,13,0,0">
+                            <Border Name="statusBadge" Background="#30383D" CornerRadius="5" Padding="8,3" VerticalAlignment="Top">
+                                <TextBlock Name="statusLabel" Text="待选择" FontSize="12"/>
+                            </Border>
+                            <TextBlock Name="buildLabel" Text="选好后会自动检查是否支持" Foreground="{StaticResource MutedText}" FontSize="13" VerticalAlignment="Center" Margin="10,0,0,0"/>
                         </StackPanel>
+                        <TextBlock Name="sourceHint" Foreground="#E8BA98" TextWrapping="Wrap" Margin="0,10,0,0" Visibility="Collapsed"/>
+                        <Expander Name="detectionExpander" Header="检测详情" Margin="0,12,0,0" Visibility="Collapsed">
+                            <StackPanel Margin="3,10,0,0">
+                                <TextBlock Name="detectionDetails" TextWrapping="Wrap" Foreground="{StaticResource MutedText}" FontSize="12"/>
+                                <Button Name="refreshSaiButton" Content="重新检测" Click="RefreshSai_ButtonClicked" FontSize="12" Padding="10,5" MinHeight="30" HorizontalAlignment="Left" Margin="0,10,0,0"/>
+                            </StackPanel>
+                        </Expander>
                     </StackPanel>
                 </Border>
-                <ListBox Grid.Row="2" Name="appList" Background="{x:Null}" Foreground="#FFCCCCCC" BorderBrush="{x:Null}" Margin="0,20,-20,0" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Hidden" VerticalContentAlignment="Center">
+
+                <TextBlock Text="2   选择主题" Style="{StaticResource SectionTitle}" Margin="0,24,0,12"/>
+                <ListBox Name="themeList" SelectionChanged="Theme_SelectionChanged" Background="Transparent" Foreground="{StaticResource MainText}" BorderThickness="0" Padding="0"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                         HorizontalContentAlignment="Stretch" AutomationProperties.Name="主题配色">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate><UniformGrid Columns="2"/></ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Foreground" Value="{StaticResource MainText}"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            <Setter Property="Padding" Value="0"/>
+                            <Setter Property="Margin" Value="0,0,10,10"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListBoxItem">
+                                        <Border Name="Card" Background="{StaticResource Surface}" BorderBrush="{StaticResource Outline}" BorderThickness="2" CornerRadius="12" Padding="13">
+                                            <ContentPresenter/>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Card" Property="BorderBrush" Value="#6B7D76"/></Trigger>
+                                            <Trigger Property="IsSelected" Value="True"><Setter TargetName="Card" Property="BorderBrush" Value="{StaticResource Accent}"/></Trigger>
+                                            <Trigger Property="IsKeyboardFocused" Value="True"><Setter TargetName="Card" Property="BorderBrush" Value="{StaticResource Accent}"/></Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <Border CornerRadius="6" Background="{Binding Primary}" Padding="6" Height="96" ClipToBounds="True">
+                                    <Grid>
+                                        <Grid.RowDefinitions><RowDefinition Height="12"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+                                        <Border Background="{Binding Ternary}" CornerRadius="2"/>
+                                        <Grid Grid.Row="1" Margin="0,5,0,0">
+                                            <Grid.ColumnDefinitions><ColumnDefinition Width="42"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                                            <Border Background="{Binding Secondary}" CornerRadius="3">
+                                                <StackPanel Margin="5,6">
+                                                    <Border Background="{Binding Selection}" Height="7" CornerRadius="2"/>
+                                                    <Border Background="{Binding Ternary}" Height="7" CornerRadius="2" Margin="0,5,0,0"/>
+                                                    <Border Background="{Binding Ternary}" Height="7" CornerRadius="2" Margin="0,5,0,0"/>
+                                                </StackPanel>
+                                            </Border>
+                                            <Border Grid.Column="1" Background="#FAF8F3" Margin="12,5,7,5" CornerRadius="2">
+                                                <Viewbox Stretch="Uniform">
+                                                    <Canvas Width="150" Height="52">
+                                                        <Path Data="M 18,30 C 40,4 58,46 84,20 S 116,14 133,23" Stroke="{Binding Primary}" StrokeThickness="4" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
+                                                        <Path Data="M 40,42 C 66,24 86,46 110,34" Stroke="{Binding Selection}" StrokeThickness="3" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
+                                                    </Canvas>
+                                                </Viewbox>
+                                            </Border>
+                                        </Grid>
+                                    </Grid>
+                                </Border>
+                                <Grid Margin="0,12,0,0">
+                                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                                    <TextBlock Text="{Binding Name}" FontWeight="SemiBold" FontSize="16" TextTrimming="CharacterEllipsis"/>
+                                    <TextBlock Grid.Column="1" Text="✓ 已选择" Foreground="{StaticResource Accent}" FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="8,0,0,0">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers><DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" Value="True"><Setter Property="Visibility" Value="Visible"/></DataTrigger></Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Grid>
+                                <TextBlock Text="{Binding Description}" Foreground="{StaticResource MutedText}" FontSize="12" TextWrapping="Wrap" Margin="0,5,0,0"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
                 </ListBox>
-        </Grid>
+                <TextBlock Name="themeHint" Text="上方为配色示意，应用后在 SAI 中查看实际效果。" Foreground="{StaticResource MutedText}" FontSize="12" TextWrapping="Wrap" Margin="0,2,0,16"/>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Border Grid.Row="2" BorderBrush="{StaticResource Outline}" BorderThickness="0,1,0,0" Padding="0,18,0,0" Margin="0,12,0,0">
+            <StackPanel>
+                <ProgressBar Name="busyProgress" IsIndeterminate="True" Height="3" Foreground="{StaticResource Accent}" Background="{StaticResource Outline}" Visibility="Collapsed" Margin="0,0,0,10"/>
+                <TextBlock Name="operationMessage" Text="先关闭正在运行的 SAI。原版程序和配置会保留。" Foreground="{StaticResource MutedText}" TextWrapping="Wrap" FontSize="13" Margin="0,0,0,12"/>
+                <Grid>
+                    <Button Name="restoreButton" Content="恢复原版并启动" Click="Restore_ButtonClicked" HorizontalAlignment="Left" Visibility="Collapsed"
+                            ToolTip="清理本工具生成的主题副本，再启动原版 SAI。"/>
+                    <Button Name="launchButton" Content="请先选择 SAI2" Style="{StaticResource PrimaryButton}" Click="Launch_ButtonClicked" HorizontalAlignment="Right" MinWidth="220" IsEnabled="False"/>
+                </Grid>
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>
