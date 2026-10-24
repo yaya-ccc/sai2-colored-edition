@@ -1,80 +1,41 @@
 [简体中文](README.md) | **English** | [Русский](README.ru.md)
 
-<div align="center">
-  <img src="https://github.com/supchyan/yum2-theme-toolkit/assets/123704468/6a6c2116-0c8e-4f8d-ac0f-d6c1996d273f" height="150" />
-</div>
-<br />
+# SAI 2 - Colored Edition
 
-# <p align=center>SAI 2 - Colored Edition</p>
-<div align="center" style="padding-left: 100px;">
-<table style="width:100%">
-  <th>
-    <a href="https://github.com/supchyan/sai2-colored-edition/tree/main/themes/">
-      <img src="https://github.com/supchyan/sai2-colored-edition/assets/123704468/e174f1c7-a8bd-424f-801e-025930177841" width="24"/>
-      </br>
-      <span>Theme examples</span>
-    </a>
-  </th>
-  <th>
-    <a href="https://github.com/supchyan/sai2-colored-edition/tree/main/ref/init/data">
-      <img src="https://github.com/supchyan/sai2-colored-edition/assets/123704468/691a8bad-a32d-4ef2-a8a4-d3c7e210c11e" width="24"/>
-      </br>
-      <span>Colors & Addresses</span>
-    </a>
-  </th>
-  <th>
-    <a href="https://github.com/supchyan/sai2-colored-edition/releases">
-      <img src="https://github.com/supchyan/sai2-colored-edition/assets/123704468/f2c7603f-030b-4dc1-8984-f49a4532097e" width="24"/>
-      </br>
-      <span>Latest releases</span>
-    </a>
-  </th>
-  <th>
-    <a href="https://discord.gg/dGF8p9UGyM">
-      <img src="https://github.com/supchyan/sai2-colored-edition/assets/123704468/037e74ed-d5cc-4f4c-b668-0c004180b3ab" width="24"/>
-      </br>
-      <span>My Discord</span>
-    </a>
-  </th>
-</table>
-</div>
+Change SAI2's interface colors, create custom themes and keep your original program.
 
-> [!IMPORTANT]
-> I'm not contributing this project right now. If you want to help with reverse-engineering, you're welcome!<br>
-> It's around `95%` of sai2's components are colorable with this tools, so if you fine with this, you're welcome as well!
+[Download](https://github.com/yaya-ccc/sai2-colored-edition/releases) · [Report an issue](https://github.com/yaya-ccc/sai2-colored-edition/issues)
 
-## Introduction
-Toolkit based on `sai2 64bit 2024.02.22`. So this is **full sai2**, which has custom themes support!
-</br></br>
+## Use
 
-Any questions? Contact me on my [Discord Server](https://discord.gg/dGF8p9UGyM). I'll do my best.
-</br></br>
+1. Extract the package, keep all accompanying files and run `S2CE.exe`. Standard packages require .NET 8 Desktop Runtime; self-contained packages do not.
+2. Close SAI, click **选择程序…** (Select program) and choose the original `sai2.exe`, with its INI file beside it.
+3. Wait for **可换肤** (Supported), then select a theme card.
+4. Click **生成主题并启动 SAI** (Generate theme and launch SAI). The tool creates a separate copy and keeps your original EXE and INI unchanged.
 
-That's all, good luck in use! ^^
-</br></br>
+The launcher remembers your selection. You can also run `sai2-colored.exe` directly from the SAI installation directory.
 
-## How to install
-Get the latest version on [Releases](https://github.com/supchyan/sai2-colored-edition/releases) page. Download and extract folder into any location you want! Run `S2CE.exe` and enjoy 😎
-</br></br>
+Verified **2024.02.22 x64** and **2024.08.14 x64 localized builds** are supported. Use the launcher's detection result to check your executable.
 
-To let sai2 work well, you need a license file. I can't give it to you, so it's not a my problem tho.</br>
-*Probably, other git repo can help you to receive it, but I didn't say that.*
-</br></br>
+## Customize colors
 
-License should be placed into `ref` folder. This license file can be named as you want.
-</br></br>
+- Select a preset and click **自定义配色…** (Customize colors). Adjust the six colors using the swatches or `#RRGGBB` values.
+- Name your theme and click **保存主题** (Save theme).
+- To edit a user theme, click **编辑配色…** (Edit colors) or double-click its card. **保存修改** (Save changes) updates it; **另存为…** (Save as) keeps the original and creates a copy.
+- Return to the main window and click **生成主题并启动 SAI** to apply the saved palette.
 
-## Custom themes
-Quick start guide can be found [here](https://github.com/supchyan/sai2-colored-edition/tree/main/themes)
-</br></br>
+![Theme editor](docs/screenshots/theme-editor.png)
 
-## Screenshots
-![image](https://github.com/supchyan/sai2-colored-edition/assets/123704468/dbe7efca-5865-4585-93d7-fc3541c33575)
-![image](https://github.com/supchyan/sai2-colored-edition/assets/123704468/9e74f3b5-ac05-4890-bb7e-abeae43bb404)
-![image](https://github.com/supchyan/sai2-colored-edition/assets/123704468/5389d452-b83f-4a30-b50d-ac655947be77)
-<br/>
+User themes are stored in `%LOCALAPPDATA%\S2CE\themes`. Share a JSON file from this folder; the recipient places it in their own user theme folder and reopens the launcher.
 
-## Development
-If you want to build this project from source, you need to install `.NET SDK 8.0+` and compile this project using `Visual Studio`.
+## Restore the original
 
-🐳
+Close SAI and click **恢复原版并启动** (Restore and launch original). The tool removes the verified themed copy and starts the original.
+
+## SAI2 preview
+
+![Custom theme in SAI2](docs/screenshots/sai2-theme.png)
+
+---
+
+Maintained by [yaya-ccc](https://github.com/yaya-ccc), based on [supchyan's original project](https://github.com/supchyan/sai2-colored-edition).

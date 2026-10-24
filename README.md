@@ -1,82 +1,41 @@
 **简体中文** | [English](README.en.md) | [Русский](README.ru.md)
 
-<div align="center">
-  <img src="https://github.com/supchyan/yum2-theme-toolkit/assets/123704468/6a6c2116-0c8e-4f8d-ac0f-d6c1996d273f" height="150" />
-</div>
-<br />
+# SAI 2 - Colored Edition
 
-# <p align=center>SAI 2 - Colored Edition</p>
-<div align="center" style="padding-left: 100px;">
-<table style="width:100%">
-  <th>
-    <a href="https://github.com/supchyan/sai2-colored-edition/tree/main/themes/">
-      <img src="https://github.com/supchyan/sai2-colored-edition/assets/123704468/e174f1c7-a8bd-424f-801e-025930177841" width="24"/>
-      </br>
-      <span>主题示例</span>
-    </a>
-  </th>
-  <th>
-    <a href="https://github.com/supchyan/sai2-colored-edition/tree/main/ref/init/data">
-      <img src="https://github.com/supchyan/sai2-colored-edition/assets/123704468/691a8bad-a32d-4ef2-a8a4-d3c7e210c11e" width="24"/>
-      </br>
-      <span>颜色与地址</span>
-    </a>
-  </th>
-  <th>
-    <a href="https://github.com/supchyan/sai2-colored-edition/releases">
-      <img src="https://github.com/supchyan/sai2-colored-edition/assets/123704468/f2c7603f-030b-4dc1-8984-f49a4532097e" width="24"/>
-      </br>
-      <span>最新版本</span>
-    </a>
-  </th>
-  <th>
-    <a href="https://discord.gg/dGF8p9UGyM">
-      <img src="https://github.com/supchyan/sai2-colored-edition/assets/123704468/037e74ed-d5cc-4f4c-b668-0c004180b3ab" width="24"/>
-      </br>
-      <span>Discord 社区</span>
-    </a>
-  </th>
-</table>
-</div>
+为 SAI2 更换界面配色，支持自定义主题，保留原版程序。
 
-> [!IMPORTANT]
-> 原作者目前暂未继续开发此项目，欢迎有兴趣的开发者参与逆向工程。<br>
-> 目前可通过这些工具修改 sai2 约 `95%` 的组件颜色，欢迎体验！
+[下载](https://github.com/yaya-ccc/sai2-colored-edition/releases) · [问题反馈](https://github.com/yaya-ccc/sai2-colored-edition/issues)
 
-## 简介
+## 使用
 
-这套工具基于 `sai2 64bit 2024.02.22` 制作，是支持自定义主题的**完整 sai2**。
+1. 解压工具包，保留全部文件，运行 `S2CE.exe`。普通包需要 .NET 8 Desktop Runtime，自包含包无需另装。
+2. 关闭 SAI，点击 **“选择程序…”**，选择原版 `sai2.exe`，并保留它旁边的 INI 文件。
+3. 确认显示 **“可换肤”**，选择一张主题卡片。
+4. 点击 **“生成主题并启动 SAI”**。工具会生成独立副本，原 EXE 和 INI 保持不变。
 
-如有疑问，可以前往原作者的 [Discord 服务器](https://discord.gg/dGF8p9UGyM)提问，原作者会尽力提供帮助。
+下次打开工具会记住上次选择，也可直接运行 SAI 安装目录中的 `sai2-colored.exe`。
 
-祝使用愉快！^^
+目前支持已验证的 **2024.02.22 x64** 和 **2024.08.14 x64 汉化构建**，是否可用以工具检测结果为准。
 
-## 安装
+## 自定义配色
 
-从 [Releases 页面](https://github.com/supchyan/sai2-colored-edition/releases)下载最新版本，解压到任意目录，然后运行 `S2CE.exe` 即可。😎
+- 选中预设，点击 **“自定义配色…”**，调整六组颜色；可以点击色块选色，也可以输入 `#RRGGBB`。
+- 输入主题名称，点击 **“保存主题”**。
+- 修改已有主题时，点击 **“编辑配色…”** 或双击卡片。**“保存修改”** 更新当前主题，**“另存为…”** 保留原主题并创建副本。
+- 保存后，回到主界面点击 **“生成主题并启动 SAI”** 应用。
 
-要正常使用 sai2，需要自行准备许可证文件，本项目不提供许可证。
+![配色编辑器](docs/screenshots/theme-editor.png)
 
-*原文补充：也许其他与 SAI 相关的 Git 仓库能帮上忙，不过就当我没说。*
+用户主题保存在 `%LOCALAPPDATA%\S2CE\themes`。分享时发送其中的 JSON 文件，接收方放入同一用户目录后重新打开工具即可。
 
-将许可证文件放入 `ref` 文件夹，文件名可以自行命名。
+## 恢复原版
 
-## 自定义主题
+关闭 SAI，点击 **“恢复原版并启动”**。工具会清理校验通过的主题副本，然后启动原版。
 
-有关主题的创建方法及内部结构，请参阅[主题指南](https://github.com/supchyan/sai2-colored-edition/tree/main/themes)。
+## SAI2 效果
 
-## 截图
+![SAI2 自定义主题](docs/screenshots/sai2-theme.png)
 
-![SAI 2 自定义主题截图 1](https://github.com/supchyan/sai2-colored-edition/assets/123704468/dbe7efca-5865-4585-93d7-fc3541c33575)
-![SAI 2 自定义主题截图 2](https://github.com/supchyan/sai2-colored-edition/assets/123704468/9e74f3b5-ac05-4890-bb7e-abeae43bb404)
-![SAI 2 自定义主题截图 3](https://github.com/supchyan/sai2-colored-edition/assets/123704468/5389d452-b83f-4a30-b50d-ac655947be77)
+---
 
-## 开发
-
-当前分支已适配经过验证的 **2024.08.14 x64 汉化构建**，打包与回归验证方式见[兼容性指南](docs/20240814-support.md)。两个受支持构建均按可执行文件的精确哈希识别。
-
-1.3.0 提供简体中文启动器、主题卡片、选择记忆和独立恢复入口，在所选原程序旁生成独立的换肤 EXE/INI。见[使用与验证说明](docs/multiversion-copy.md)。
-
-如需从源码构建，请安装 `.NET SDK 8.0+`，并使用 `Visual Studio` 编译项目。
-
-🐳
+由 [yaya-ccc](https://github.com/yaya-ccc) 维护，基于 [supchyan 的原项目](https://github.com/supchyan/sai2-colored-edition)。
