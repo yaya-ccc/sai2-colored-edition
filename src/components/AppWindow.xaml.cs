@@ -162,7 +162,7 @@ public partial class AppWindow : Window
         }
         catch (Exception exception)
         {
-            ShowOperationError(generated ? "处理完成，但未能启动 SAI。" : "操作未完成，请先关闭 SAI 并检查目录是否可写。", exception);
+            ShowOperationError(LaunchFailureS2CE.Describe(exception, generated, restore), exception);
         }
         finally
         {
