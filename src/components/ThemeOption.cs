@@ -28,6 +28,7 @@ internal sealed class ThemeOption
         {
             "example_cappuccino_theme" => ("卡布奇诺", "温暖的深棕色，搭配柔和灰色文字。"),
             "example_retro_theme" => ("薄荷复古", "清新的薄荷绿，搭配深色文字。"),
+            "example_sakura_theme" => ("樱花浅粉", "轻柔的樱花粉，搭配清晰的深色文字。"),
             _ => (userTheme ? id : id.Replace('_', ' '), "自定义配色 · 6 组界面颜色")
         };
         return new() { Id = userTheme ? "user:" + id : id, Name = name, Description = description,

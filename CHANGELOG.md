@@ -5,6 +5,7 @@ Start the maintained edition at v1.0.0 with the existing feature set:
 - Separate themed EXE/INI generation and restoration, with exact build checks.
 - Theme cards, remembered selections and a six-color editor with live preview.
 - User theme editing, save-as support and consistent scrolling.
+- Built-in Sakura Pink theme with soft pink backgrounds and dark text.
 
 ## Historical development builds (before v1.0.0 numbering)
 
