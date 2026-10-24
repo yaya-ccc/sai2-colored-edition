@@ -1,113 +1,30 @@
-[English Description](#about-location)
+[简体中文](../README.md) · [English](../README.en.md) · [Русский](../README.ru.md)
 
-## Про местоположение
-Все темы должны храниться в папке `themes`.
+# 主题 / Themes / Темы
 
-## Про названия
-Названия тем должны состоять только из `латинских букв` и `цифр`. В качестве разделителя так же можете использовать символ `_`.
-</br></br>
+## 中文
 
-*Пример названий:*
-</br></br>
+1. 选中主题卡片，点击 **“自定义配色…”**，调整颜色并保存新主题。
+2. 修改用户主题时，点击 **“编辑配色…”** 或双击卡片。
+3. **“保存修改”** 更新当前主题；**“另存为…”** 创建新主题并保留原主题。
+4. 关闭 SAI，回到主界面点击 **“生成主题并启动 SAI”** 应用。
 
-`my_cool_theme_4_you` - *подходит*</br>
-`my cool theme 4 #$%!!!` - *не отобразиться в списке*
-</br></br>
+内置主题在程序旁的 `themes` 文件夹。用户主题在 `%LOCALAPPDATA%\S2CE\themes`；分享或导入时复制 JSON 文件，重新打开工具即可。
 
-## Про цвета
-Все цвета это `HEX`. Если не слышали про `HEX` цвета, то интернет вам поможет. В двух словах, `HEX` цвета - это просто `RGB` цвета в `16-ричном` представлении. `#FF0000` - КРАСНЫЙ, `#00FF00` - ЗЕЛЕНЫЙ, `#0000FF` - СИНИЙ и т. д.
-</br></br> 
+## English
 
-Красить элементы можете в любой цвет, но я настоятельно рекомендую не использовать цвета `#000000` и `#FFFFFF`, т.к. мои инструменты работают на реверс инжинеринге, и подобные цвета могут просто поломать запуск sai2. **Просто не используйте их**.
-</br>
-Примеры файлов тем смотрите в этой папке.
-</br></br>
+1. Select a card, click **自定义配色…** (Customize colors), adjust the palette and save a new theme.
+2. Click **编辑配色…** (Edit colors) or double-click a card to edit a user theme.
+3. **保存修改** (Save changes) updates the theme; **另存为…** (Save as) creates a copy.
+4. Close SAI, then click **生成主题并启动 SAI** in the main window to apply it.
 
-## Что такое AffectColorCircle
-Это триггер, который влияет на цвет фона вокруг цветового круга:
+Built-in presets are in `themes` beside the application. User themes are in `%LOCALAPPDATA%\S2CE\themes`. Copy JSON files to share or import themes, then reopen the launcher.
 
-<img width="280" height="300" alt="image" src="https://github.com/user-attachments/assets/6fc7affe-c440-4b2c-a88f-6de3b110305e" />
+## Русский
 
-```json
-{
-    "AffectColorCircle": "1"
-}
-```
+1. Выберите карточку, нажмите **自定义配色…** («Настроить цвета»), измените палитру и сохраните новую тему.
+2. Для изменения пользовательской темы нажмите **编辑配色…** («Изменить цвета») или дважды щёлкните по карточке.
+3. **保存修改** («Сохранить изменения») обновляет тему; **另存为…** («Сохранить как») создаёт копию.
+4. Закройте SAI и нажмите **生成主题并启动 SAI** в главном окне для применения.
 
-<img width="280" height="300" alt="image" src="https://github.com/user-attachments/assets/5a15f449-c6b2-494a-9501-1530ed3986ff" />
-
-```json
-{
-    "AffectColorCircle": "0"
-}
-```
-
-## Про установку тем
-1. Открываете лаунчер
-2. Выбираете тему из списка
-3. Нажимаете `Save & Run`
-<br/><br/>
-
-*Далее просто откроется сам sai2 с нужной темой:* <br/>
-<img src="https://github.com/supchyan/sai2-colored-edition/assets/123704468/bdda1c9f-2a67-4277-a046-3ad364d099ee" width="600"/>
-</br></br>
-
-<img src="https://github.com/supchyan/sai2-colored-edition/assets/123704468/3dac1d04-4496-4fae-b2a8-46f3c8ac9138" width="600"/>
-</br></br></br>
-
-
-## About location
-All themes have to be located in `themes` directory.
-
-## About title
-Themes' titles should contain only `latin letters` and `numbers`. You can use `_` as well.
-</br></br>
-
-*Title examples:*
-</br></br>
-
-`my_cool_theme_4_you` - *all good*</br>
-`my cool theme 4 #$%!!!` - *won't be visible in the launcher's menu*
-</br></br>
-
-## About colors
-The colors in themes' files are stored in `HEX`. If you don't know what `HEX` is that, internet should help you. But in two words, `HEX` color is just a `RGB` color in the `hexadecimal` presentation. `#FF0000` - RED, `#00FF00` - GREEN, `#0000FF` - BLUE and etc.
-</br></br>
-
-## What is AffectColorCircle
-This is a trigger to whether or not affect the color circle background:
-
-<img width="280" height="300" alt="image" src="https://github.com/user-attachments/assets/6fc7affe-c440-4b2c-a88f-6de3b110305e" />
-
-```json
-{
-    "AffectColorCircle": "1"
-}
-```
-
-<img width="280" height="300" alt="image" src="https://github.com/user-attachments/assets/5a15f449-c6b2-494a-9501-1530ed3986ff" />
-
-```json
-{
-    "AffectColorCircle": "0"
-}
-```
-
-
-## About theme installation
-1. Open the launcher
-2. Choose theme in the list
-3. Click `Save & Run`
-<br/><br/>
-
-*Right after that, sai2 will be opened with the selected theme:* <br/>
-<img src="https://github.com/supchyan/sai2-colored-edition/assets/123704468/bdda1c9f-2a67-4277-a046-3ad364d099ee" width="600"/>
-</br></br>
-
-<img src="https://github.com/supchyan/sai2-colored-edition/assets/123704468/3dac1d04-4496-4fae-b2a8-46f3c8ac9138" width="600"/>
-</br></br></br>
-
-You can use any colors you want, but prevent of using `#000000` - BLACK and `#FFFFFF` - WHITE colors, because all of my toolkit based on reverse-engineering, so these colors can break sai2's launch at all. **Just do not use them**.
-
-Themes examples you can find in this folder.
-
+Встроенные темы находятся в папке `themes` рядом с программой. Пользовательские — в `%LOCALAPPDATA%\S2CE\themes`. Для обмена или импорта скопируйте JSON и заново откройте лаунчер.
