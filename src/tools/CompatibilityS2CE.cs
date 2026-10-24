@@ -1,6 +1,5 @@
 using System.Diagnostics;
 using System.IO;
-using System.Security.Cryptography;
 using System.Text.Json;
 
 namespace S2CE.Tools
@@ -23,14 +22,11 @@ namespace S2CE.Tools
             try
             {
                 byte[] binary = current ? new FileS2CE().ReadOriginal() : File.ReadAllBytes(fullPath);
-                hash = Convert.ToHexString(SHA256.HashData(binary));
                 var info = FileVersionInfo.GetVersionInfo(fullPath);
                 if (!string.IsNullOrWhiteSpace(info.FileVersion)) build = "文件版本 " + info.FileVersion;
-                build = BinaryProfileS2CE.Describe(binary);
                 // Include address availability/bounds and the version-specific
                 // instruction baseline in the compatibility decision.
-                BinaryProfileS2CE.GetAddresses(binary);
-                BinaryProfileS2CE.ApplyControlTextColor(binary, (byte[])binary.Clone(), [0xC1, 0xC1, 0xC1]);
+                build = BinaryProfileS2CE.Validate(binary, out hash);
                 bool themed = current && (PathS2CE.SourceExecutable is not null ? File.Exists(PathS2CE.sai2) :
                     !binary.AsSpan().SequenceEqual(File.ReadAllBytes(fullPath)));
                 return new(fullPath, build, hash, true, themed,

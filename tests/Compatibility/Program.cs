@@ -60,6 +60,52 @@ try
     File.WriteAllText("themes/alternate.json", JsonSerializer.Serialize(colors));
 
     var app = new MainTheme();
+    foreach (byte[] source in new[] { legacy, target })
+    {
+        byte[] beforeValidation = (byte[])source.Clone();
+        string build = BinaryProfileS2CE.Validate(source, out string hash);
+        Assert(build == BinaryProfileS2CE.Describe(source), "Validation returned a different build");
+        Assert(hash == Convert.ToHexString(SHA256.HashData(source)), "Validation returned a different hash");
+        Assert(source.SequenceEqual(beforeValidation), "Read-only validation changed the original binary");
+    }
+
+    // A late validation failure must leave even the in-memory patch untouched.
+    var profiles = System.Text.Json.Nodes.JsonNode.Parse(File.ReadAllText("ref/init/data/BinaryProfiles.json"))!;
+    var textFix = profiles.AsArray().Single(profile => profile!["ControlTextFix"] is not null)!["ControlTextFix"]!;
+    int selectionOffset = Convert.ToInt32(textFix["SelectionBackground"]!.GetValue<string>(), 16);
+    byte[] invalidLayout = (byte[])target.Clone();
+    invalidLayout[selectionOffset] ^= 1;
+    byte[] beforePatch = (byte[])invalidLayout.Clone();
+    bool layoutRejected = false;
+    try { BinaryProfileS2CE.ApplyControlTextColor(target, invalidLayout, [0x12, 0x34, 0x56]); }
+    catch (InvalidDataException) { layoutRejected = true; }
+    Assert(layoutRejected, "An altered selection background was accepted");
+    Assert(invalidLayout.SequenceEqual(beforePatch), "A rejected patch partially modified the output buffer");
+
+    string validProfiles = File.ReadAllText("ref/init/data/BinaryProfiles.json");
+    try
+    {
+        foreach (string field in new[] { "Cave", "Converter", "SelectionBackground", "Calls" })
+        {
+            foreach (int offset in new[] { target.Length - 1, target.Length })
+            {
+                var invalidProfiles = System.Text.Json.Nodes.JsonNode.Parse(validProfiles)!;
+                var fix = invalidProfiles.AsArray().Single(profile => profile!["ControlTextFix"] is not null)!["ControlTextFix"]!;
+                string address = "0x" + offset.ToString("X8");
+                if (field == "Calls") fix[field]![0] = address;
+                else fix[field] = address;
+                File.WriteAllText("ref/init/data/BinaryProfiles.json", invalidProfiles.ToJsonString());
+                Reset(target);
+                var result = CompatibilityS2CE.CheckCurrent();
+                Assert(!result.IsSupported, "An out-of-bounds " + field + " patch was accepted");
+                Assert(result.Sha256 == Convert.ToHexString(SHA256.HashData(target)), "Rejected layout lost its binary hash");
+                RejectedWithoutChanges(() => BinaryProfileS2CE.ApplyControlTextColor(target, (byte[])target.Clone(), [1, 2, 3]),
+                    "Out-of-bounds " + field);
+            }
+        }
+    }
+    finally { File.WriteAllText("ref/init/data/BinaryProfiles.json", validProfiles); }
+
     foreach (var (name, source, expectedBorder) in new[] {
         ("2024.02.22", legacy, 0x534678), ("2024.08.14", target, 0x534C78)
     })

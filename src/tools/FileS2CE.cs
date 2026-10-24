@@ -84,13 +84,15 @@ namespace S2CE.Tools
         public void SaveTheme(byte[] original, byte[] themed)
         {
             CheckCurrent();
+            string originalHash = Hash(original);
+            string themedHash = Hash(themed);
             if (PathS2CE.SourceExecutable is not null)
             {
-                CheckGeneratedCopy(Hash(original));
+                CheckGeneratedCopy(originalHash);
                 ReplaceFile(PathS2CE.generatedConfiguration, loadedConfiguration!);
                 ReplaceFile(PathS2CE.sai2, themed);
                 ReplaceFile(PathS2CE.state, JsonSerializer.SerializeToUtf8Bytes(new ThemeState {
-                    OriginalSha256 = Hash(original), ThemedSha256 = Hash(themed),
+                    OriginalSha256 = originalHash, ThemedSha256 = themedHash,
                     ConfigurationSha256 = Hash(loadedConfiguration!) }));
                 return;
             }
@@ -99,10 +101,10 @@ namespace S2CE.Tools
                 using var backup = new FileStream(PathS2CE.oldSai2, FileMode.CreateNew, FileAccess.Write);
                 backup.Write(original);
             }
-            else if (Hash(File.ReadAllBytes(PathS2CE.oldSai2)) != Hash(original))
+            else if (Hash(File.ReadAllBytes(PathS2CE.oldSai2)) != originalHash)
                 throw new IOException("The theme backup changed while preparing the theme.");
             ReplaceFile(PathS2CE.sai2, themed);
-            var state = new ThemeState { OriginalSha256 = Hash(original), ThemedSha256 = Hash(themed) };
+            var state = new ThemeState { OriginalSha256 = originalHash, ThemedSha256 = themedHash };
             ReplaceFile(PathS2CE.state, JsonSerializer.SerializeToUtf8Bytes(state));
         }
 
