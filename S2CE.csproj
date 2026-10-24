@@ -13,6 +13,7 @@
 		<Product>S2CE</Product>
 	</PropertyGroup>
 	<ItemGroup>
+		<Resource Include="res\sai2-preview.png" />
 		<Compile Remove="tests\**\*.cs" />
 
 		<Resource Include="res\Monocraft.ttf"></Resource>
